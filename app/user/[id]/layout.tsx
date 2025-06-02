@@ -9,15 +9,15 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  console.log(params);
+
   const { id } = await params;
   const user = await currentUser();
-  if (user && user.id != id) {
+  if (user && user.id === id) {
     return {
-        title: `${user.username} - Profil StoryCareer`,
+        title: `me- Profil StoryCareer`,
         description: `Découvrez le profil et les stories de ${user.username} sur StoryCareer`,
         openGraph: {
-          title: `${user.username} - Profil StoryCareer`,
+          title: `me- Profil StoryCareer`,
           description: `Découvrez le profil et les stories de ${user.username} sur StoryCareer`,
           images: [user.imageUrl],
         },
