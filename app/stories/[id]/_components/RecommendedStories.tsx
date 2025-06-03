@@ -38,7 +38,7 @@ export default function RecommendedStories({ stories }: { stories: StoryWithCoun
                   <h3 className="font-medium leading-tight line-clamp-2">
                     {story.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2 whitespace-pre-wrap">
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2 whitespace-pre-wrap break-words max-w-[200px] overflow-hidden">
                     {story.content}
                   </p>
                   <div className="flex items-center gap-3 mt-1 text-xs text-stone-400">

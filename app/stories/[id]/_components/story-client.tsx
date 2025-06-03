@@ -94,7 +94,9 @@ export default function StoryClient({
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto  pb-5">
+    <div className="w-full max-w-5xl mx-auto pb-5">
+
+
       {/* Main Content Area - similar to YouTube video display */}
       <div className="flex flex-col">
         <div className="flex items-center mb-2">
@@ -154,8 +156,8 @@ export default function StoryClient({
         {/* Description */}
         <div className="px-4 py-3 mt-3 border-t border-stone-800">
           <div className={cn("relative")}>
-            <h1 className="font-semibold text-xl">{story.title}</h1>
-            <p className="text-muted-foreground whitespace-pre-line">
+            <h1 className="font-semibold text-xl break-words font-serif">{story.title}</h1>
+            <p className="text-muted-foreground whitespace-pre-line break-words max-w-full overflow-hidden font-serif leading-relaxed">
               {story.content}
             </p>
           </div>

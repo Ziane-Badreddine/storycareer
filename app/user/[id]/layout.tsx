@@ -42,7 +42,7 @@ export default function UserLayout({
   children: ReactNode
 }) {
   return (
-    <div className="container mx-auto p-4 lg:p-8 min-h-[calc(100vh-4rem)]">
+    <div className="container mx-auto p-5 overflow-hidden lg:p-8 min-h-[calc(100vh-4rem)]">
       {children}
     </div>
   )

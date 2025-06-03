@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function StoriesLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="w-full min-h-screen px-5 md:px-10 py-24 border-x dark:bg-stone-950">
+    <main className="w-full min-h-screen  overflow-hidden  py-24 border-x dark:bg-stone-950">
       <Navbar />
       {children}
     </main>

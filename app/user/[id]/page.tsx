@@ -202,7 +202,7 @@ export default async function UserProfile({
                         <h3 className="font-semibold text-sm sm:text-base">
                           {story.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mt-1">
+                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mt-1 whitespace-pre-line break-words max-w-[280px] lg:max-w-3xl overflow-hidden">
                           {story.content}
                         </p>
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-2">
