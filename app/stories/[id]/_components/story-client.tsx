@@ -3,7 +3,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader, MoreHorizontal, Filter, Heart } from "lucide-react";
+import { Loader, Filter, Heart } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Story, Save, Comment } from "@/lib/generated/prisma";
@@ -15,14 +15,14 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTrigger,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
 import Link from "next/link";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export type StoryProps = Story & {
   saves: Save[];
@@ -70,8 +70,6 @@ export default function StoryClient({
     }
   }
 
-
-
   const handleComment = async () => {
     if (!comment.trim()) return;
 
@@ -95,8 +93,6 @@ export default function StoryClient({
 
   return (
     <div className="w-full max-w-5xl mx-auto pb-5">
-
-
       {/* Main Content Area - similar to YouTube video display */}
       <div className="flex flex-col">
         <div className="flex items-center mb-2">
@@ -127,7 +123,10 @@ export default function StoryClient({
         <div className="px-4 pt-4">
           <div className="flex items-center justify-between mt-3">
             <div className="flex items-center gap-3">
-              <Link href={`/user/${story.user.id}`} className="hover:opacity-80 transition">
+              <Link
+                href={`/user/${story.user.id}`}
+                className="hover:opacity-80 transition"
+              >
                 <Avatar className="h-7 w-7">
                   <AvatarImage src={story.user.avatar} alt="@user" />
                   <AvatarFallback>
@@ -136,7 +135,10 @@ export default function StoryClient({
                 </Avatar>
               </Link>
               <div className="flex flex-col">
-                <Link href={`/user/${story.user.id}`} className="font-medium hover:underline">
+                <Link
+                  href={`/user/${story.user.id}`}
+                  className="font-medium hover:underline"
+                >
                   {story.user.username}
                 </Link>
               </div>
@@ -156,7 +158,9 @@ export default function StoryClient({
         {/* Description */}
         <div className="px-4 py-3 mt-3 border-t border-stone-800">
           <div className={cn("relative")}>
-            <h1 className="font-semibold text-xl break-words font-serif">{story.title}</h1>
+            <h1 className="font-semibold text-xl break-words font-serif">
+              {story.title}
+            </h1>
             <p className="text-muted-foreground whitespace-pre-line break-words max-w-full overflow-hidden font-serif leading-relaxed">
               {story.content}
             </p>
@@ -197,7 +201,10 @@ export default function StoryClient({
         </div>
 
         <div className="flex items-start gap-3 mb-6">
-          <Link href={`/user/${user?.user?.id}`} className="hover:opacity-80 transition">
+          <Link
+            href={`/user/${user?.user?.id}`}
+            className="hover:opacity-80 transition"
+          >
             <Avatar className="h-8 w-8">
               <AvatarImage src={user?.user?.imageUrl} />
               <AvatarFallback>
@@ -243,7 +250,10 @@ export default function StoryClient({
 
           {story.comments.map((c) => (
             <div key={c.id} className="flex gap-3 items-start group">
-              <Link href={`/user/${c.user.id}`} className="hover:opacity-80 transition">
+              <Link
+                href={`/user/${c.user.id}`}
+                className="hover:opacity-80 transition"
+              >
                 <Avatar className="h-8 w-8 flex-shrink-0">
                   <AvatarImage src={c.user.avatar} />
                   <AvatarFallback>
@@ -264,33 +274,69 @@ export default function StoryClient({
                     })}
                   </span>
                 </div>
-                <p className="text-sm whitespace-pre-wrap mt-1">{c.content}</p>
+                <p className="text-sm whitespace-pre-wrap mt-1 break-all">
+                  {c.content}
+                </p>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <MoreHorizontal className="w-4 h-4" />
-              </Button>
             </div>
           ))}
         </div>
       </div>
       <div className="md:hidden mt-4 px-4">
-        <Drawer>
-          <DrawerTrigger asChild>
+        <Sheet>
+          <SheetTrigger asChild>
             <Button variant="outline" className="w-full">
               Voir les commentaires ({story.comments.length})
             </Button>
-          </DrawerTrigger>
-          <DrawerContent className="max-h-[90dvh] overflow-y-auto">
-            <DrawerHeader>
-              <DrawerTitle>Commentaires</DrawerTitle>
-            </DrawerHeader>
-            <div className="px-4">
-              {/* Ajout de commentaire */}
-              <div className="flex items-start gap-3 mb-6">
+          </SheetTrigger>
+          <SheetContent side="bottom" className="h-full flex flex-col">
+            <SheetHeader>
+              <SheetTitle>Commentaires</SheetTitle>
+            </SheetHeader>
+            
+            {/* Liste des commentaires - scrollable */}
+            <div className="flex-1 overflow-y-auto px-4 mt-4">
+              <div className="space-y-6 pb-4">
+                {story.comments.length === 0 && (
+                  <p className="text-muted-foreground text-sm">
+                    Aucun commentaire pour le moment.
+                  </p>
+                )}
+                {story.comments.map((c) => (
+                  <div key={c.id} className="flex gap-3 items-start group">
+                    <Link href={`/user/${c.user.id}`} className="hover:opacity-80 transition">
+                      <Avatar className="h-8 w-8 flex-shrink-0">
+                        <AvatarImage src={c.user.avatar} />
+                        <AvatarFallback>
+                          {c.user.username.slice(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Link>
+                    <div className="flex flex-col flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-sm">
+                          {c.user.username}
+                        </span>
+                        <span className="text-xs text-stone-400">
+                          il y a{" "}
+                          {formatDistanceToNow(new Date(c.createdAt), {
+                            addSuffix: false,
+                            locale: fr,
+                          })}
+                        </span>
+                      </div>
+                      <p className="text-sm mt-1 whitespace-pre-line break-all max-w-full overflow-hidden">
+                        {c.content}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Ajout de commentaire - sticky at bottom */}
+            <div className="sticky bottom-0 bg-background border-t px-4 py-4">
+              <div className="flex items-start gap-3">
                 <Link href={`/user/${user?.user?.id}`} className="hover:opacity-80 transition">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.user?.imageUrl} />
@@ -330,54 +376,9 @@ export default function StoryClient({
                   )}
                 </div>
               </div>
-
-              {/* Liste des commentaires */}
-              <div className="space-y-6 pb-4">
-                {story.comments.length === 0 && (
-                  <p className="text-muted-foreground text-sm">
-                    Aucun commentaire pour le moment.
-                  </p>
-                )}
-                {story.comments.map((c) => (
-                  <div key={c.id} className="flex gap-3 items-start group">
-                    <Link href={`/user/${c.user.id}`} className="hover:opacity-80 transition">
-                      <Avatar className="h-8 w-8 flex-shrink-0">
-                        <AvatarImage src={c.user.avatar} />
-                        <AvatarFallback>
-                          {c.user.username.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                    </Link>
-                    <div className="flex flex-col flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm">
-                          {c.user.username}
-                        </span>
-                        <span className="text-xs text-stone-400">
-                          il y a{" "}
-                          {formatDistanceToNow(new Date(c.createdAt), {
-                            addSuffix: false,
-                            locale: fr,
-                          })}
-                        </span>
-                      </div>
-                      <p className="text-sm whitespace-pre-wrap mt-1">
-                        {c.content}
-                      </p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <MoreHorizontal className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
             </div>
-          </DrawerContent>
-        </Drawer>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );
