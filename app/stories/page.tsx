@@ -9,13 +9,13 @@ import AllStories from "./_components/AllStories";
 import Link from "next/link";
 
 
-// Loading component
+
 function StoriesLoading() {
   return (
     <div className="w-full overflow-hidden">
       <Navbar />
       <div className="mt-24 w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center gap-8 px-4">
-        {/* Top Likes Section Loading */}
+
         <div className="w-full space-y-4">
           <div className="h-8 bg-muted animate-pulse rounded-md w-48" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -25,7 +25,7 @@ function StoriesLoading() {
           </div>
         </div>
 
-        {/* Top Comments Section Loading */}
+
         <div className="w-full space-y-4">
           <div className="h-8 bg-muted animate-pulse rounded-md w-48" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -35,7 +35,7 @@ function StoriesLoading() {
           </div>
         </div>
 
-        {/* All Stories Loading */}
+
         <div className="w-full space-y-4">
           <div className="h-8 bg-muted animate-pulse rounded-md w-32" />
           <div className="space-y-4">
@@ -49,7 +49,7 @@ function StoriesLoading() {
   );
 }
 
-// Main content component
+
 async function StoriesContent() {
   const user = await currentUser();
 
@@ -89,7 +89,6 @@ async function StoriesContent() {
     };
   });
 
-  // Safe sorting with null checks
   const storiesTopLikes = [...storiesWithUser].sort(
     (a, b) => (b._count?.saves ?? 0) - (a._count?.saves ?? 0)
   );
@@ -106,7 +105,7 @@ async function StoriesContent() {
     }
   );
 
-  // Handle empty states
+
   if (!stories || stories.length === 0) {
     return (
       <div className="w-full overflow-hidden">
@@ -167,7 +166,7 @@ async function StoriesContent() {
   );
 }
 
-// Main page component with Suspense
+
 export default function Page() {
   return (
     <Suspense fallback={<StoriesLoading />}>

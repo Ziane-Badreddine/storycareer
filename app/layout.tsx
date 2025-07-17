@@ -6,7 +6,6 @@ import Loading from "./loading";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import ScrollToTop from "./_components/scroll-to-top";
-import { WarningDialog } from "./_components/WarningDialog";
 
 const delius = Delius({
   variable: "--font-delius",
@@ -49,7 +48,6 @@ export default function RootLayout({
               <Loading />
             </ClerkLoading>
             <ClerkLoaded>
-              <WarningDialog />
               {children}
               <ScrollToTop />
               <Toaster />
