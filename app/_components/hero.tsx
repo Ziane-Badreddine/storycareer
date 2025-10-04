@@ -96,7 +96,7 @@ export default function Hero({ stats }: HeroProps) {
         </div>
       </div>
 
-      <div className="w-full bg-primary py-10">
+      <div className="w-full bg-primary py-10 px-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 w-full py-10 max-w-4xl mx-auto  ">
           <div className="flex flex-col items-center justify-center gap-2 text-foreground">
             <div className=" rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 ">
@@ -110,7 +110,7 @@ export default function Hero({ stats }: HeroProps) {
               duration={1}
               className="text-6xl font-bold "
             />
-            <p className="font-semibold text-xl">Professionals Connected</p>
+            <p className="font-semibold text-xl text-center">Professionals Connected</p>
           </div>
           <div className="flex flex-col items-center justify-center gap-2 text-foreground">
             <div className=" rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 ">
@@ -124,7 +124,7 @@ export default function Hero({ stats }: HeroProps) {
               duration={1}
               className="text-6xl font-bold "
             />
-            <p className="font-semibold text-xl">Career Stories Shared</p>
+            <p className="font-semibold text-xl text-center">Career Stories Shared</p>
           </div>
           <div className="flex flex-col items-center justify-center gap-2 text-foreground">
             <div className=" rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 ">
@@ -140,13 +140,13 @@ export default function Hero({ stats }: HeroProps) {
                 className="text-6xl font-bold "
               />
             </h3>
-            <p className="font-semibold text-xl">Total Interactions</p>
+            <p className="font-semibold text-xl text-center">Total Interactions</p>
           </div>
         </div>
       </div>
 
       {/* Features Grid */}
-      <div className="w-full max-w-4xl py-10">
+      <div className="w-full  py-10 px-4">
         <div className="text-center space-y-2 mb-12">
           <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary text-center">
             Platform Features
@@ -155,7 +155,7 @@ export default function Hero({ stats }: HeroProps) {
             Everything you need to share and discover career stories
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 gap-5 md:gap-12 px-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-12 px-4">
           <div className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl hover:bg-gradient-to-br hover:from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border border-transparent hover:border-primary/10 hover:shadow-lg">
             <div className="bg-primary/10 p-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300 rounded-full">
               <FaRegEdit className="text-3xl text-primary" />
