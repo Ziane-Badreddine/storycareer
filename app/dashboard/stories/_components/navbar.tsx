@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +18,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 
 interface NavbarProps {
   currentCategory: string;
@@ -28,70 +32,83 @@ interface NavbarProps {
 }
 
 export default function Navbar({ categories, tags }: NavbarProps) {
-const router = useRouter();
-const pathname = usePathname();
-const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-const [openCategories, setOpenCategories] = React.useState(false);
-const [openTags, setOpenTags] = React.useState(false);
-const [selectedCategory, setSelectedCategory] = React.useState<string>("");
-const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
+  const [openCategories, setOpenCategories] = React.useState(false);
+  const [openTags, setOpenTags] = React.useState(false);
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("");
+  const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
 
-const [searchQuery, setSearchQuery] = React.useState(
-  searchParams.get("search") || ""
-);
+  const [searchQuery, setSearchQuery] = React.useState(
+    searchParams.get("search") || ""
+  );
 
-// Fonction utilitaire pour modifier les searchParams
-const updateSearchParam = React.useCallback((key: string, value: string | string[] | null) => {
-  const params = new URLSearchParams(searchParams.toString());
+  // Fonction utilitaire pour modifier les searchParams
+  const updateSearchParam = React.useCallback(
+    (key: string, value: string | string[] | null) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-  if (!value || value === "All" || (Array.isArray(value) && value.length === 0)) {
-    params.delete(key);
-  } else {
-    const formatted = Array.isArray(value) ? value.join(",") : value;
-    params.set(key, formatted);
-  }
+      if (
+        !value ||
+        value === "All" ||
+        (Array.isArray(value) && value.length === 0)
+      ) {
+        params.delete(key);
+      } else {
+        const formatted = Array.isArray(value) ? value.join(",") : value;
+        params.set(key, formatted);
+      }
 
-  router.push(`${pathname}?${params.toString()}`);
-}, [router, pathname, searchParams]);
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, searchParams]
+  );
 
-const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  setSearchQuery(value);
-  updateSearchParam("search", value || null);
-};
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    updateSearchParam("search", value || null);
+  };
 
-const handleCategorySelect = (value: string) => {
-  setSelectedCategory(value);
-  updateSearchParam("category", value === "All" ? null : value);
-  setOpenCategories(false);
-};
+  const handleCategorySelect = (value: string) => {
+    setSelectedCategory(value);
+    updateSearchParam("category", value === "All" ? null : value);
+    setOpenCategories(false);
+  };
 
-const handleTagSelect = (value: string) => {
-  if (value === "All") {
-    setSelectedTags([]);
-  } else {
-    setSelectedTags((prev) =>
-      prev.includes(value) ? prev.filter((tag) => tag !== value) : [...prev, value]
-    );
-  }
-  setOpenTags(false)
-};
+  const handleTagSelect = (value: string) => {
+    if (value === "All") {
+      setSelectedTags([]);
+    } else {
+      setSelectedTags((prev) =>
+        prev.includes(value)
+          ? prev.filter((tag) => tag !== value)
+          : [...prev, value]
+      );
+    }
+    setOpenTags(false);
+  };
 
-// Mettre à jour l'URL quand les tags changent
-React.useEffect(() => {
-  updateSearchParam("tag", selectedTags.length ? selectedTags : null);
-}, [selectedTags, updateSearchParam]);
+  // Mettre à jour l'URL quand les tags changent
+  React.useEffect(() => {
+    updateSearchParam("tag", selectedTags.length ? selectedTags : null);
+  }, [selectedTags, updateSearchParam]);
 
   return (
     <nav className="flex flex-col lg:flex-row gap-4 items-start md:items-center justify-between w-full">
-      <Input
-        type="text"
-        placeholder="Search stories..."
-        className="w-full md:w-1/2 lg:w-1/4"
-        value={searchQuery}
-        onChange={handleSearchChange}
-      />
+      <InputGroup className="w-full md:w-1/2 lg:w-1/4">
+        <InputGroupInput
+          type="text"
+          placeholder="Search stories..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        <InputGroupAddon>
+          <SearchIcon />
+        </InputGroupAddon>
+      </InputGroup>
       <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full md:1/2 lg:w-1/4 ">
         <Popover open={openCategories} onOpenChange={setOpenCategories}>
           <PopoverTrigger asChild>

@@ -24,10 +24,11 @@ export default function StoryCommandDialog() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const { data: stories, error, isLoading } = useSWR<Story[]>(
-    "/api/story/all",
-    fetcher
-  );
+  const {
+    data: stories,
+    error,
+    isLoading,
+  } = useSWR<Story[]>("/api/story/all", fetcher);
 
   // Keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {
@@ -42,16 +43,17 @@ export default function StoryCommandDialog() {
   }, []);
 
   return (
-    <div className="flex justify-center w-full md:w-1/3 lg:w-1/3">
+    <div className="flex justify-center w-full ">
       <Button
-        variant="ghost"
-        className="flex items-center gap-2 justify-start rounded-full"
+        variant={"ghost"}
+        size={"icon"}
+        className="rounded-full"
         onClick={() => setOpen(true)}
       >
         <Search className="w-5 h-5" />
       </Button>
 
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen}   >
         <CommandInput placeholder="Search stories..." />
         <CommandList>
           {isLoading ? (
@@ -105,7 +107,9 @@ export default function StoryCommandDialog() {
                       )}
                     </div>
                     <div className="flex flex-col gap-1 flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">{story.title}</p>
+                      <p className="text-sm font-medium truncate">
+                        {story.title}
+                      </p>
                       <p className="text-xs text-muted-foreground line-clamp-1">
                         {story.descrption}
                       </p>

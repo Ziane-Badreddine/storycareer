@@ -71,9 +71,9 @@ export default function Navbar() {
                 </Button>
               </Link>
               <Separator orientation="vertical" />
-              <StoryCommandDialog />
-              <Separator orientation="vertical" />
               <UserButton />
+              <Separator orientation="vertical" />
+              <StoryCommandDialog />
             </div>
           </SignedIn>
         </div>
@@ -83,7 +83,6 @@ export default function Navbar() {
       <div className="flex items-center justify-center gap-2 lg:hidden">
         <SignedIn>
           <StoryCommandDialog />
-          <Separator orientation="vertical" />
 
           <UserButton />
         </SignedIn>

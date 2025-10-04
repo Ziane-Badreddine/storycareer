@@ -45,11 +45,12 @@ interface Props {
 
 export default function CardStory({ story }: Props) {
   const [open, setOpen] = useState(false);
+  const [isLoadingDeleted,setIsLoadingDeleted] = useState(false)
   const { user } = useUser();
   const router = useRouter();
   async function handleDelete() {
     try {
-      setOpen(false);
+      setIsLoadingDeleted(true)
       const res = await axios.delete(`/api/story/${story.id}`);
       if (res.status === 200) {
         toast.success("Story deleted successfully");
@@ -57,6 +58,9 @@ export default function CardStory({ story }: Props) {
       }
     } catch {
       toast.error("Failed to deleted story");
+    }finally{
+      setIsLoadingDeleted(false)
+      setOpen(false);
     }
   }
 
@@ -156,7 +160,7 @@ export default function CardStory({ story }: Props) {
                       >
                         cancel
                       </Button>
-                      <Button variant={"destructive"} onClick={handleDelete}>
+                      <Button variant={"destructive"} disabled={isLoadingDeleted} onClick={handleDelete}>
                         continue
                       </Button>
                     </div>

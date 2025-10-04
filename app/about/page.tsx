@@ -10,25 +10,29 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { StarIcon } from "lucide-react";
 import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
+import { FiZap } from "react-icons/fi";
 import {
   SiNextdotjs,
   SiTypescript,
   SiReact,
   SiTailwindcss,
   SiPrisma,
-  SiSupabase,
+  SiClerk,
+  SiShadcnui,
+  SiReacthookform,
+  SiZod,
 } from "react-icons/si";
 import Link from "next/link";
 
 const SOCIAL_LINKS = {
   github: "https://github.com/Ziane-Badreddine",
   linkedin: "https://www.linkedin.com/in/ziane-badr-eddine-baa394337",
-  website: "https://badreddine-zianee.vercel.app",
+  website: "https://ziane-badreddine.vercel.app",
 };
 
 export default async function AboutPage() {
   return (
-    <div className="min-h-screen bg-background mt-20">
+    <div className="min-h-screen bg-background mt-20 px-4">
       <div className="container mx-auto p-2 sm:p-4 lg:p-6 space-y-8 pt-20 pb-12">
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Creator Section */}
@@ -45,10 +49,13 @@ export default async function AboutPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex flex-col sm:flex-row items-start gap-8">
-                <div className="relative">
+              <div className="flex flex-col sm:flex-row items-start justify-center gap-8">
+                <div className="relative ">
                   <Avatar className="h-32 w-32 ring-4 ring-primary/10">
-                    <AvatarImage src="/ziane.jpg" alt="Ziane Bader Eddine" />
+                    <AvatarImage
+                      src="https://avatars.githubusercontent.com/u/183768832?v=4"
+                      alt="Ziane Bader Eddine"
+                    />
                     <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
                       ZB
                     </AvatarFallback>
@@ -75,19 +82,10 @@ export default async function AboutPage() {
                     <Badge className="px-4 py-2 bg-primary text-primary-foreground">
                       S1T
                     </Badge>
-                    <Badge variant="secondary" className="px-4 py-2">
-                      Full Stack Developer
-                    </Badge>
-                    <Badge
-                      variant="outline"
-                      className="px-4 py-2 flex items-center gap-1"
-                    >
-                      <SiNextdotjs className="w-4 h-4" />
-                      Next.js Expert
-                    </Badge>
+                    <Badge className="px-4 py-2">Full Stack Developer</Badge>
                   </div>
 
-                  <div className="flex gap-3 pt-2">
+                  <div className="flex flex-wrap gap-2 pt-2">
                     <Link
                       href={SOCIAL_LINKS.github}
                       target="_blank"
@@ -98,8 +96,8 @@ export default async function AboutPage() {
                         size="sm"
                         className="hover:text-black dark:hover:text-white"
                       >
-                        <FaGithub className="w-4 h-4 mr-2" />
-                        GitHub
+                        <FaGithub className="w-4 h-4" />
+                        <span className="hidden md:block">GitHub</span>
                       </Button>
                     </Link>
                     <Link
@@ -112,8 +110,8 @@ export default async function AboutPage() {
                         size="sm"
                         className="hover:text-[#0077b5]"
                       >
-                        <FaLinkedin className="w-4 h-4 mr-2" />
-                        LinkedIn
+                        <FaLinkedin className="w-4 h-4 " />
+                        <span className="hidden md:block">LinkedIn</span>
                       </Button>
                     </Link>
                     <Link
@@ -126,8 +124,8 @@ export default async function AboutPage() {
                         size="sm"
                         className="hover:text-primary"
                       >
-                        <FaGlobe className="w-4 h-4 mr-2" />
-                        Portfolio
+                        <FaGlobe className="w-4 h-4 " />
+                        <span className="hidden md:block">Portfolio</span>
                       </Button>
                     </Link>
                   </div>
@@ -177,7 +175,7 @@ export default async function AboutPage() {
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">
-                  <span className="text-primary-foreground">⚡</span>
+                  <FiZap className="w-6 h-6 text-primary-foreground" />
                 </div>
                 Built with Modern Tech
               </CardTitle>
@@ -186,46 +184,44 @@ export default async function AboutPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                <div className="group space-y-3 text-center p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="group space-y-3 text-center p-4 md:p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div className="bg-background rounded-lg p-3 w-fit mx-auto group-hover:scale-110 transition-transform">
-                    <SiNextdotjs className="w-6 h-6" />
+                    <SiNextdotjs className="text-3xl" />
                   </div>
                   <Badge variant="secondary">Next.js 14</Badge>
-                  <p className="text-xs text-muted-foreground font-medium">
+                  <p className="text-xs md:text-sm text-muted-foreground font-medium">
                     React Framework
                   </p>
                 </div>
 
-                <div className="group space-y-3 text-center p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group space-y-3 text-center p-4 md:p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div className="bg-primary rounded-lg p-3 w-fit mx-auto group-hover:scale-110 transition-transform">
-                    <SiSupabase className="w-6 h-6 text-primary-foreground" />
+                    <SiPrisma className="text-3xl text-primary-foreground" />
                   </div>
-                  <Badge variant="secondary">Supabase</Badge>
-                  <p className="text-xs text-muted-foreground font-medium">
+                  <Badge variant="secondary">Prisma</Badge>
+                  <p className="text-xs md:text-sm text-muted-foreground font-medium">
                     Database & Backend
                   </p>
                 </div>
 
-                <div className="group space-y-3 text-center p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group space-y-3 text-center p-4 md:p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div className="bg-primary rounded-lg p-3 w-fit mx-auto group-hover:scale-110 transition-transform">
-                    <span className="text-primary-foreground font-bold text-sm">
-                      🔐
-                    </span>
+                    <SiClerk className="text-3xl text-primary-foreground" />
                   </div>
                   <Badge variant="secondary">Clerk</Badge>
-                  <p className="text-xs text-muted-foreground font-medium">
+                  <p className="text-xs md:text-sm text-muted-foreground font-medium">
                     Authentication
                   </p>
                 </div>
 
-                <div className="group space-y-3 text-center p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group space-y-3 text-center p-4 md:p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div className="bg-primary rounded-lg p-3 w-fit mx-auto group-hover:scale-110 transition-transform">
-                    <SiPrisma className="w-6 h-6 text-primary-foreground" />
+                    <SiTailwindcss className="text-3xl text-primary-foreground" />
                   </div>
-                  <Badge variant="secondary">Prisma</Badge>
-                  <p className="text-xs text-muted-foreground font-medium">
-                    Database ORM
+                  <Badge variant="secondary">Tailwind CSS</Badge>
+                  <p className="text-xs md:text-sm text-muted-foreground font-medium">
+                    Utility-First CSS Framework
                   </p>
                 </div>
               </div>
@@ -235,32 +231,31 @@ export default async function AboutPage() {
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="outline"
-                    className="px-4 py-2 flex items-center gap-1"
+                    className="px-4 py-2 flex items-center gap-2"
                   >
                     <SiTypescript className="w-4 h-4" />
                     TypeScript
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="px-4 py-2 flex items-center gap-1"
+                    className="px-4 py-2 flex items-center gap-2"
                   >
                     <SiReact className="w-4 h-4" />
                     React
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="px-4 py-2 flex items-center gap-1"
+                    className="px-4 py-2 flex items-center gap-2"
                   >
-                    <SiTailwindcss className="w-4 h-4" />
-                    Tailwind CSS
+                    <SiShadcnui className="w-4 h-4" />
+                    Shadcnui
                   </Badge>
-                  <Badge variant="outline" className="px-4 py-2">
-                    shadcn/ui
-                  </Badge>
-                  <Badge variant="outline" className="px-4 py-2">
+                  <Badge variant="outline" className="px-4 py-2 gap-2">
+                    <SiReacthookform className="w-4 h-4" />
                     React Hook Form
                   </Badge>
                   <Badge variant="outline" className="px-4 py-2">
+                    <SiZod className="w-4 h-4" />
                     Zod
                   </Badge>
                 </div>

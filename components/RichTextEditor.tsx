@@ -379,7 +379,7 @@ export default function RichTextEditor({
         </DropdownMenu>
       </div>
 
-      <EditorContent editor={editor} className="tiptap" />
+      <EditorContent editor={editor} className="tiptap break-all" />
 
       {/* Link Dialog */}
       <Dialog open={isLinkDialogOpen} onOpenChange={setIsLinkDialogOpen}>

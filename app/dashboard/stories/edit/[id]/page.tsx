@@ -28,7 +28,7 @@ import RichTextEditor from "@/components/RichTextEditor";
 
 const formSchema = z.object({
   title: z.string().trim().min(3, "Title is required").max(200),
-  descrption: z.string().trim().min(100),
+  descrption: z.string().trim(),
   content: z.string().trim().min(200),
   tags: z.array(z.string()).optional(),
   category: z.string().min(3).max(50).optional(),

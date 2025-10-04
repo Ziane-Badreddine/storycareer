@@ -140,7 +140,7 @@ async function StoriesContent() {
         <TopCommentsSection stories={storiesTopComments || []} />
         <AllStories stories={allstories || []} />
       </div>
-      <footer className="border-t border-muted-foreground/50 shadow-xs w-screen pb-8 pt-5 flex justify-center lg:justify-start items-center px-10">
+      <footer className="border-t border-muted-foreground/50 shadow-xs w-full  py-5 flex justify-center lg:justify-start items-center px-10">
         <p className="text-xs md:text-base lg:text-lg max-w-xl md:max-w-3xl">
           Built by{" "}
           <Link href={"/"} className="underline underline-offset-2">
