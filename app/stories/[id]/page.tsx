@@ -13,6 +13,7 @@ export default async function StoryPage({
   const story = await prisma.story.findUnique({
     where: { id: (await params).id },
     include: { comments: true, saves: true },
+
   });
 
   if (!story) return <div>Story introuvable</div>;
@@ -51,33 +52,31 @@ export default async function StoryPage({
   // Suggestions par même catégorie (ou random fallback)
   const recommended = await prisma.story.findMany({
     where: {
-      NOT: { id: story.id }, 
+      NOT: { id: story.id },
     },
     orderBy: { createdAt: "desc" },
-    include:{
-      _count:{
-        select:{
-          saves: true
-        }
-      }
+    include: {
+      _count: {
+        select: {
+          saves: true,
+        },
+      },
     },
     take: 6,
   });
 
+  return (
+    <div className="w-full mx-auto flex flex-col lg:flex-row  px-4 pt-6 overflow-hidden">
+      <div className="flex-1 lg:w-[77%]">
+        <StoryClient
+          story={storyWithUser}
+          isSaved={story.saves.some((save) => save.userId === user?.id)}
+        />
+      </div>
 
-
-return (
-  <div className="w-full mx-auto flex flex-col lg:flex-row  px-4 pt-6 overflow-hidden">
-    <div className="flex-1 lg:w-[77%]">
-      <StoryClient
-        story={storyWithUser}
-        isSaved={story.saves.some((save) => save.userId === user?.id)}
-      />
+      <div className="w-full lg:w-[25%] flex-shrink-0">
+        <RecommendedStories stories={recommended} />
+      </div>
     </div>
-
-    <div className="w-full lg:w-[25%] flex-shrink-0">
-      <RecommendedStories stories={recommended}  />
-    </div>
-  </div>
-);
+  );
 }

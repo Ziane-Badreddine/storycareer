@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Save, Story, Comment } from "@/lib/generated/prisma";
+import { Save, Story, Comment } from "@prisma/client";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -119,7 +119,7 @@ export default function CardStory({ story, isSaved }: CardStoryProps) {
 
         {/* Description */}
         <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-1 line-clamp-2">
-          {story.content}
+          {story.descrption}
         </p>
 
         {/* Footer actions */}

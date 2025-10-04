@@ -1,23 +1,18 @@
-import { PrismaClient } from '@/lib/generated/prisma'
+import { PrismaClient } from "@prisma/client/edge"
+import { withAccelerate } from "@prisma/extension-accelerate"
+
+function setupPrisma() {
+  return new PrismaClient().$extends(withAccelerate())
+}
+type ExtendedPrismaClient = ReturnType<typeof setupPrisma>
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+  prisma?: ExtendedPrismaClient
 }
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+export const prisma: ExtendedPrismaClient =
+  globalForPrisma.prisma ?? setupPrisma()
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma
 }
-
-// Handle connection cleanup on app termination
-process.on('beforeExit', async () => {
-  await prisma.$disconnect()
-})
-
-// Handle uncaught errors
-process.on('uncaughtException', async (e) => {
-  console.error(e)
-  await prisma.$disconnect()
-  process.exit(1)
-})

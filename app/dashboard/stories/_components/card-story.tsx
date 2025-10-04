@@ -1,6 +1,6 @@
 "use client";
 
-import { Story } from "@/lib/generated/prisma";
+
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -33,6 +33,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import { Story } from "@prisma/client";
 
 interface Props {
   story: Story & {
@@ -170,7 +171,7 @@ export default function CardStory({ story }: Props) {
         <Link href={`/stories/${story.id}`} className="block">
           <h1 className="text-lg font-semibold font-mono">{story.title}</h1>
           <p className="text-sm text-muted-foreground line-clamp-3">
-            {story.content}
+            {story.descrption}
           </p>
         </Link>
         <div className="flex flex-wrap gap-1">

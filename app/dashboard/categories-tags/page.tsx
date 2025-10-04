@@ -9,15 +9,17 @@ export default async function CategoriesTagsPage() {
   if (!user) return <div className="p-6">Unauthorized</div>;
 
   // --- Récupère les catégories ---
-  const categories = await prisma.story.groupBy({
-    by: ['category'],
+  type CategoryGroup = { category: string | null; _count: number };
+  const categories: CategoryGroup[] = await prisma.story.groupBy({
+    by: ["category"],
     where: {
       userId: user.id,
       category: { not: null },
     },
     _count: true,
-    orderBy: { category: 'asc' },
-  });
+    orderBy: { category: "asc" },
+
+  }) as CategoryGroup[];
 
   // --- Récupère les tags ---
   const storiesWithTags = await prisma.story.findMany({
@@ -35,7 +37,9 @@ export default async function CategoriesTagsPage() {
     }
   }
 
-  const tags = Array.from(tagMap.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+  const tags = Array.from(tagMap.entries()).sort((a, b) =>
+    a[0].localeCompare(b[0])
+  );
 
   return (
     <div className="p-6 space-y-6 w-full">
@@ -89,7 +93,9 @@ export default async function CategoriesTagsPage() {
           ) : (
             <div className="text-center py-12">
               <FolderOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground text-lg">Aucune catégorie trouvée.</p>
+              <p className="text-muted-foreground text-lg">
+                Aucune catégorie trouvée.
+              </p>
               <p className="text-sm text-muted-foreground/70 mt-2">
                 Créez votre première histoire avec une catégorie pour commencer
               </p>
@@ -131,7 +137,7 @@ export default async function CategoriesTagsPage() {
                 Ajoutez des tags à vos histoires pour les organiser
               </p>
             </div>
-            )}
+          )}
         </TabsContent>
       </Tabs>
     </div>

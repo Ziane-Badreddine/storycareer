@@ -57,6 +57,7 @@ export default async function UserProfile({
     orderBy: {
       createdAt: "desc",
     },
+  
   });
 
   // Calculate stats
@@ -203,7 +204,7 @@ export default async function UserProfile({
                           {story.title}
                         </h3>
                         <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mt-1 whitespace-pre-line break-words max-w-[280px] lg:max-w-3xl overflow-hidden">
-                          {story.content}
+                          {story.descrption}
                         </p>
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-2">
                           {story.category && (

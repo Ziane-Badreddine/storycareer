@@ -10,9 +10,7 @@ export async function DELETE(
 
   try {
     await prisma.comment.delete({
-      where: {
-        id: id,
-      },
+      where: { id: id },
     });
 
     return NextResponse.json({ success: true });

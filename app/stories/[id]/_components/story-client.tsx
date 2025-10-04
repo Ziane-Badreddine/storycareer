@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Loader, Filter, Heart } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { Story, Save, Comment } from "@/lib/generated/prisma";
+import { Story, Save, Comment } from "@prisma/client";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
@@ -23,6 +23,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
 
 export type StoryProps = Story & {
   saves: Save[];
@@ -49,6 +52,7 @@ export default function StoryClient({
   isSaved: boolean;
 }) {
   const [isLoading, setLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [comment, setComment] = useState("");
   const router = useRouter();
   const user = useUser();
@@ -57,6 +61,7 @@ export default function StoryClient({
     if (!user?.user?.id) return toast.error("Vous devez être connecté.");
 
     try {
+      setIsSaving(true); // start loading
       if (isSaved) {
         await axios.delete(`/api/save/${story.id}`);
         toast.success("Sauvegarde retirée");
@@ -67,6 +72,8 @@ export default function StoryClient({
       router.refresh();
     } catch {
       toast.error("Échec lors de la mise à jour");
+    } finally {
+      setIsSaving(false);
     }
   }
 
@@ -90,6 +97,13 @@ export default function StoryClient({
       setComment("");
     }
   };
+
+  const editor = useEditor({
+    extensions: [StarterKit, Underline],
+    content: story.content,
+    editable: false,
+    immediatelyRender: false,
+  });
 
   return (
     <div className="w-full max-w-5xl mx-auto pb-5">
@@ -120,7 +134,10 @@ export default function StoryClient({
         )}
 
         {/* Title & Main Info */}
-        <div className="px-4 pt-4">
+        <div className=" pt-4">
+          <h1 className="font-semibold text-xl break-words font-serif ">
+            {story.title}
+          </h1>
           <div className="flex items-center justify-between mt-3">
             <div className="flex items-center gap-3">
               <Link
@@ -148,6 +165,7 @@ export default function StoryClient({
               className="rounded-full  h-9 px-3 flex items-center justify-center"
               variant={isSaved ? "default" : "outline"}
               onClick={handleToggleSave}
+              disabled={isSaving}
             >
               <Heart className="w-5 h-5 mr-1" />
               <p className="text-lg">{story.saves.length}</p>
@@ -156,21 +174,11 @@ export default function StoryClient({
         </div>
 
         {/* Description */}
-        <div className="px-4 py-3 mt-3 border-t border-stone-800">
-          <div className={cn("relative")}>
-            <h1 className="font-semibold text-xl break-words font-serif">
-              {story.title}
-            </h1>
-            <p className="text-muted-foreground whitespace-pre-line break-words max-w-full overflow-hidden font-serif leading-relaxed">
-              {story.content}
-            </p>
-          </div>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mt-3">
+        <div className=" my-5 py-5 px-4 bg-primary/10 ">
+          <div className="flex flex-wrap gap-2">
             {story.tags.map((tag, i) => (
               <Badge
-                variant="outline"
+                variant="secondary"
                 key={i}
                 className=" hover:bg-background cursor-pointer"
               >
@@ -178,11 +186,16 @@ export default function StoryClient({
               </Badge>
             ))}
           </div>
+          <div className={cn("relative mt-4")}>
+              {editor && <EditorContent editor={editor} />}
+          </div>
+
+          {/* Tags */}
         </div>
       </div>
 
       {/* Comments Section */}
-      <div className="hidden md:block mt-4 px-4 border-t border-stone-800 pt-4">
+      <div className="hidden md:block  px-4 border-t border-stone-800 pt-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <h2 className="font-medium">
@@ -293,7 +306,7 @@ export default function StoryClient({
             <SheetHeader>
               <SheetTitle>Commentaires</SheetTitle>
             </SheetHeader>
-            
+
             {/* Liste des commentaires - scrollable */}
             <div className="flex-1 overflow-y-auto px-4 mt-4">
               <div className="space-y-6 pb-4">
@@ -304,7 +317,10 @@ export default function StoryClient({
                 )}
                 {story.comments.map((c) => (
                   <div key={c.id} className="flex gap-3 items-start group">
-                    <Link href={`/user/${c.user.id}`} className="hover:opacity-80 transition">
+                    <Link
+                      href={`/user/${c.user.id}`}
+                      className="hover:opacity-80 transition"
+                    >
                       <Avatar className="h-8 w-8 flex-shrink-0">
                         <AvatarImage src={c.user.avatar} />
                         <AvatarFallback>
@@ -337,7 +353,10 @@ export default function StoryClient({
             {/* Ajout de commentaire - sticky at bottom */}
             <div className="sticky bottom-0 bg-background border-t px-4 py-4">
               <div className="flex items-start gap-3">
-                <Link href={`/user/${user?.user?.id}`} className="hover:opacity-80 transition">
+                <Link
+                  href={`/user/${user?.user?.id}`}
+                  className="hover:opacity-80 transition"
+                >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.user?.imageUrl} />
                     <AvatarFallback>

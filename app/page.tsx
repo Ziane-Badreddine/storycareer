@@ -6,17 +6,21 @@ import clerkClient from "@/lib/clerk";
 
 async function getStats() {
   const totalStories = await prisma.story.count();
+
   const totalUsers = await clerkClient.users.getUserList();
+  
   const totalComments = await prisma.comment.count();
+
   const totalSaves = await prisma.save.count();
 
   return {
     totalUsers: totalUsers.totalCount,
     totalStories,
     totalComments,
-    totalSaves
+    totalSaves,
   };
 }
+
 
 export default async function Home() {
   const stats = await getStats();

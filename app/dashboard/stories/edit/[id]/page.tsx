@@ -24,9 +24,11 @@ import { toast } from "sonner";
 import { useRouter, useParams } from "next/navigation";
 import ImageForm from "../../new/_components/ImageForm";
 import { CategoryCommandSelect } from "../../new/_components/CategoryCommandSelect";
+import RichTextEditor from "@/components/RichTextEditor";
 
 const formSchema = z.object({
-  title: z.string().trim().min(3, "Title is required").max(50),
+  title: z.string().trim().min(3, "Title is required").max(200),
+  descrption: z.string().trim().min(100),
   content: z.string().trim().min(200),
   tags: z.array(z.string()).optional(),
   category: z.string().min(3).max(50).optional(),
@@ -34,7 +36,13 @@ const formSchema = z.object({
   image: z.string().url().optional(),
 });
 
-const TagInput = ({ value, onChange }: { value: string[], onChange: (value: string[]) => void }) => {
+const TagInput = ({
+  value,
+  onChange,
+}: {
+  value: string[];
+  onChange: (value: string[]) => void;
+}) => {
   const [inputValue, setInputValue] = useState("");
 
   const addTag = (tag: string) => {
@@ -85,6 +93,7 @@ export default function EditStoryPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
+      descrption: "",
       content: "",
       tags: [],
       isPublished: true,
@@ -106,6 +115,7 @@ export default function EditStoryPage() {
           const story = res.data;
           form.reset({
             title: story.title,
+            descrption: story.descrption,
             content: story.content,
             tags: story.tags || [],
             category: story.category || "",
@@ -163,7 +173,6 @@ export default function EditStoryPage() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-5 px-10 py-5"
       >
-
         <FormField
           control={form.control}
           name="image"
@@ -184,7 +193,7 @@ export default function EditStoryPage() {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="title"
@@ -201,7 +210,27 @@ export default function EditStoryPage() {
             </FormItem>
           )}
         />
-        
+        <FormField
+          control={form.control}
+          name="descrption"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Short Description</FormLabel>
+              <FormDescription>
+                A brief summary of your story (100–200 characters). This will
+                appear in previews.
+              </FormDescription>
+              <FormControl>
+                <Textarea
+                  placeholder="Write a short description..."
+                  {...field}
+                  rows={4}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="content"
@@ -209,9 +238,11 @@ export default function EditStoryPage() {
             <FormItem>
               <FormLabel>Content</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Write your full story here..."
-                  {...field}
+                <RichTextEditor
+                  value={field.value}
+                  onChange={(val) => {
+                    field.onChange(val);
+                  }}
                 />
               </FormControl>
               <FormDescription>
@@ -221,7 +252,7 @@ export default function EditStoryPage() {
             </FormItem>
           )}
         />
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 gap-5 md:w-full items-start">
           <FormField
             control={form.control}
@@ -240,7 +271,7 @@ export default function EditStoryPage() {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="tags"
@@ -248,7 +279,10 @@ export default function EditStoryPage() {
               <FormItem className="md:col-span-1 lg:col-span-2 xl:col-span-3">
                 <FormLabel>Tags</FormLabel>
                 <FormControl>
-                  <TagInput value={field.value || []} onChange={field.onChange} />
+                  <TagInput
+                    value={field.value || []}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormDescription>
                   Add keywords relevant to your story.
@@ -258,7 +292,7 @@ export default function EditStoryPage() {
             )}
           />
         </div>
-        
+
         <FormField
           control={form.control}
           name="isPublished"
@@ -286,10 +320,10 @@ export default function EditStoryPage() {
             Update Story
             {loading && <Loader className="animate-spin ml-2" />}
           </Button>
-          
-          <Button 
-            type="button" 
-            variant="outline" 
+
+          <Button
+            type="button"
+            variant="outline"
             onClick={() => router.push("/dashboard/stories")}
             disabled={loading}
           >

@@ -33,7 +33,6 @@ export async function GET() {
     return NextResponse.json("unauthorized", { status: 401 }); // 401 is the correct status for unauthorized
   }
 
-
   try {
     const stories = await prisma.story.findMany({
       where: {

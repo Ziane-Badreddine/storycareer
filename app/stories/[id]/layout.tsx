@@ -21,16 +21,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${story.title} | StoryCareer`,
-    description: story.content.slice(0, 160), // Limite la description à 160 caractères
+    description: story.descrption.slice(0, 160), // Limite la description à 160 caractères
     openGraph: {
       title: story.title,
-      description: story.content.slice(0, 160),
+      description: story.descrption.slice(0, 160),
       images: story.image ? [story.image] : [],
     },
   };
 }
 
-export default function StoriesLayout({ children }: { children: React.ReactNode }) {
+export default function StoriesLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="w-full min-h-screen  overflow-hidden  py-24 border-x dark:bg-stone-950">
       <Navbar />

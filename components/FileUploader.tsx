@@ -14,7 +14,7 @@ interface Props {
 const FileUploader = ({ endPoint, onChange }: Props) => {
   return (
     <UploadDropzone
-        className='w-full bg-white'
+        className='w-full bg-card'
         endpoint={endPoint}
         onClientUploadComplete={(res) => onChange(res?.[0].ufsUrl)}
         onUploadError={(error: Error) => {

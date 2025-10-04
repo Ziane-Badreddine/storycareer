@@ -163,3 +163,60 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.tiptap {
+  p {
+    @apply my-4 leading-relaxed;
+  }
+
+  h1 {
+    @apply text-[2rem] font-bold my-6;
+  }
+
+  h2 {
+    @apply text-[1.5rem] font-semibold my-5;
+  }
+
+  h3 {
+    @apply text-[1.25rem] font-medium my-4;
+  }
+
+  h4 {
+    @apply text-base font-normal my-3;
+  }
+
+  h5 {
+    @apply text-sm font-light my-2;
+  }
+
+  h6 {
+    @apply text-xs font-extralight my-2;
+  }
+
+  ul {
+    @apply list-disc ml-6 my-4;
+  }
+
+  ul li {
+    @apply mb-2;
+  }
+
+  /* Bullet color */
+  ul li::marker {
+    @apply text-primary;
+  }
+
+  ol {
+    @apply list-decimal ml-6 my-4;
+  }
+
+  ol li {
+    @apply mb-2;
+  }
+
+  /* Number color */
+  ol li::marker {
+    @apply text-primary;
+  }
+}

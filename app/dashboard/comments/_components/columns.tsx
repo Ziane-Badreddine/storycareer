@@ -12,10 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Story } from "@/lib/generated/prisma";
+
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Story } from "@prisma/client";
 
 interface Comment {
   story: Story;
@@ -109,7 +110,7 @@ export const columns: ColumnDef<Comment>[] = [
           <div className="flex flex-col">
             <span className="font-medium text-primary">{story.title}</span>
             <span className="text-sm text-muted-foreground truncate max-w-xs">
-              {story.content}
+              {story.descrption}
             </span>
           </div>
         </div>

@@ -13,8 +13,9 @@ export default async function page() {
     select: {
       id: true,
       createdAt: true,
-      story: true
+      story: true,
     },
+
   });
 
   return (

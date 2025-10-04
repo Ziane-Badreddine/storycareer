@@ -1,4 +1,3 @@
-// /app/api/comment/route.ts
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
@@ -21,6 +20,7 @@ export async function POST(req: NextRequest) {
         userId: user.id,
       },
     });
+  
 
     return NextResponse.json(comment, { status: 201 });
   } catch (error) {

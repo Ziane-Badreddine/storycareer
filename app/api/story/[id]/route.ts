@@ -28,7 +28,6 @@ export async function DELETE(
   }
 }
 
-
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -45,7 +44,7 @@ export async function GET(
     const story = await prisma.story.findUnique({
       where: {
         id: id,
-      },
+      }
     });
 
     return NextResponse.json(story, { status: 200 });
@@ -55,16 +54,17 @@ export async function GET(
   }
 }
 
-
-export async function PUT( req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const user = await currentUser();
 
   if (!user) {
     return NextResponse.json("unauthorized", { status: 401 }); // 401 is the correct status for unauthorized
   }
 
-   const { id } = await params;
+  const { id } = await params;
 
   const body = await req.json();
 
@@ -74,9 +74,9 @@ export async function PUT( req: NextRequest,
         userId: user.id,
         ...body,
       },
-      where:{
-        id:id
-      }
+      where: {
+        id: id,
+      },
     });
 
     return NextResponse.json("Story updated successfully", { status: 200 });

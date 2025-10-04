@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Save, Story, Comment } from "@/lib/generated/prisma";
+import { Save, Story, Comment } from "@prisma/client";
 import CardStory from "./CardStory";
 import { useUser } from "@clerk/nextjs";
 

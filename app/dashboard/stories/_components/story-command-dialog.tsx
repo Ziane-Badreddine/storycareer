@@ -1,6 +1,6 @@
 "use client";
 
-import { Story } from "@/lib/generated/prisma";
+import { Story } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import {
   CommandDialog,

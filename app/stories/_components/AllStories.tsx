@@ -1,6 +1,6 @@
 "use client";
 
-import { Comment, Save, Story } from "@/lib/generated/prisma";
+import { Comment, Save, Story } from "@prisma/client";
 import React from "react";
 import CardStory from "./CardStory";
 import { useUser } from "@clerk/nextjs";

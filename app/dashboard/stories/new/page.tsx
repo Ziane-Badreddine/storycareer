@@ -9,7 +9,7 @@ import {
   FormControl,
   FormDescription,
   FormField,
-  FormItem,   
+  FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
@@ -24,17 +24,25 @@ import ImageForm from "./_components/ImageForm";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import RishEditor from "@/components/RichTextEditor";
 
 const formSchema = z.object({
-  title: z.string().trim().min(3, "Title is required").max(50),
-  content: z.string().trim().min(200),
+  title: z.string().trim().min(3, "Title is required").max(200),
+  descrption: z.string().trim().min(100),
+  content: z.string(),
   tags: z.array(z.string()).optional(),
   category: z.string().min(3).max(50).optional(),
   isPublished: z.boolean(),
   image: z.string().url().optional(),
 });
 
-const TagInput = ({ value, onChange }: { value: string[], onChange: (value: string[]) => void }) => {
+const TagInput = ({
+  value,
+  onChange,
+}: {
+  value: string[];
+  onChange: (value: string[]) => void;
+}) => {
   const [inputValue, setInputValue] = useState("");
 
   const addTag = (tag: string) => {
@@ -85,6 +93,7 @@ export default function NewStoryPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
+      descrption: "",
       content: "",
       tags: [],
       isPublished: true,
@@ -107,7 +116,7 @@ export default function NewStoryPage() {
         toast.error(res.statusText);
       }
       console.log(res);
-    } catch      {
+    } catch {
       toast.error("something be wrong");
     } finally {
       setLoading(false);
@@ -123,7 +132,7 @@ export default function NewStoryPage() {
           control={form.control}
           name="image"
           render={({ field }) => (
-            <FormItem className="flex flex-col items-start rounded-lg border p-3 shadow-sm w-full lg:w-1/2">
+            <FormItem className="flex flex-col items-start border-0 shadow-sm w-full lg:w-1/2">
               <div className="space-y-1 w-full">
                 <FormLabel>Story Image</FormLabel>
                 <FormDescription>
@@ -157,23 +166,43 @@ export default function NewStoryPage() {
         />
         <FormField
           control={form.control}
-          name="content"
+          name="descrption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Content</FormLabel>
+              <FormLabel>Short Description</FormLabel>
+              <FormDescription>
+                A brief summary of your story (100–200 characters). This will
+                appear in previews.
+              </FormDescription>
               <FormControl>
                 <Textarea
-                  placeholder="Write your full story here..."
+                  placeholder="Write a short description..."
                   {...field}
+                  rows={4}
                 />
               </FormControl>
-              <FormDescription>
-                The main body of your story (minimum 200 characters).
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Story Content</FormLabel>
+              <FormDescription>
+                The full body of your story. Minimum 200 characters recommended.
+                You can format text using the toolbar.
+              </FormDescription>
+              <FormControl>
+                <RishEditor value={field.value} onChange={(value) => field.onChange(value)} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 gap-5 md:w-full items-start">
           <FormField
             control={form.control}
@@ -199,7 +228,10 @@ export default function NewStoryPage() {
               <FormItem className="md:col-span-1 lg:col-span-2 xl:col-span-3">
                 <FormLabel>Tags</FormLabel>
                 <FormControl>
-                  <TagInput value={field.value || []} onChange={field.onChange} />
+                  <TagInput
+                    value={field.value || []}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormDescription>
                   Add keywords relevant to your story.
