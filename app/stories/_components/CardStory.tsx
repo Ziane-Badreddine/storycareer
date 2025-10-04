@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Save, Story, Comment } from "@prisma/client";
 import Image from "next/image";
-import { Heart } from "lucide-react";
+import { Heart, ImageOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
@@ -50,7 +50,7 @@ export default function CardStory({ story, isSaved }: CardStoryProps) {
         toast.success("Story sauvegardée");
       }
       router.refresh();
-    } catch  {
+    } catch {
       toast.error("Échec lors de la mise à jour");
     } finally {
       setIsLoading(false);
@@ -58,7 +58,7 @@ export default function CardStory({ story, isSaved }: CardStoryProps) {
   }
 
   return (
-    <Card className="group overflow-hidden rounded-xl bg-background border border-border shadow-sm transition-all hover:shadow-md flex flex-col">
+    <Card className="group overflow-hidden rounded-xl   shadow-sm transition-all hover:shadow-md flex flex-col py-0 pb-1 group">
       {/* Image Section */}
       <div className="relative w-full h-36 sm:h-44 md:h-52 overflow-hidden">
         {story.image ? (
@@ -66,12 +66,12 @@ export default function CardStory({ story, isSaved }: CardStoryProps) {
             src={story.image}
             alt={story.title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-105 border-b border-foreground"
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-muted-foreground/60 text-xs sm:text-sm bg-muted/30">
-            Pas d&apos;image
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground/60 text-xs sm:text-sm bg-muted/30 border-b border-foreground">
+            <ImageOff size={50} className="text-primary" />
           </div>
         )}
 
@@ -93,34 +93,36 @@ export default function CardStory({ story, isSaved }: CardStoryProps) {
               className="rounded-full object-cover w-3 h-3 sm:w-4 sm:h-4"
             />
           )}
-          <span className="truncate max-w-[80px] sm:max-w-[100px]">{story.user.username}</span>
+          <span className="truncate max-w-[80px] sm:max-w-[100px]">
+            {story.user.username}
+          </span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-2 sm:p-3 flex flex-col flex-1">
+      <div className="p-2 sm:p-3 flex flex-col flex-1 gap-2">
         {/* Tags */}
         <div className="flex gap-1 flex-wrap h-4 sm:h-5">
           {story.tags.slice(0, 3).map((tag, i) => (
             <Badge
               key={i}
-              variant="outline"
-              className="text-[8px] sm:text-[10px] px-1 sm:px-1.5 py-0 sm:py-0.5 bg-muted/40"
             >
               #{tag}
             </Badge>
           ))}
+          {story.tags.length > 3 && <span>...</span> }
         </div>
 
-        {/* Titre */}
-        <h3 className="font-semibold text-xs sm:text-sm md:text-base mt-1.5 sm:mt-2 line-clamp-1 group-hover:text-primary transition-colors">
-          {story.title}
-        </h3>
+        <Link href={`/stories/${story.id}`} className="block">
+          <h3 className="font-semibold text-xs sm:text-sm md:text-base mt-1.5 sm:mt-2 line-clamp-1 group-hover:text-primary transition-colors break-all">
+            {story.title}
+          </h3>
 
-        {/* Description */}
-        <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-1 line-clamp-2">
-          {story.descrption}
-        </p>
+          {/* Description */}
+          <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-1 line-clamp-2 break-all">
+            {story.descrption}
+          </p>
+        </Link>
 
         {/* Footer actions */}
         <div className="mt-auto pt-2 sm:pt-3 flex items-center justify-between">
@@ -139,16 +141,6 @@ export default function CardStory({ story, isSaved }: CardStoryProps) {
             </Button>
           </div>
         </div>
-
-        {/* Lire la suite */}
-        <Button
-          variant="link"
-          size="sm"
-          asChild
-          className="w-full mt-1 text-[10px] sm:text-xs md:text-sm p-0 h-5 sm:h-6"
-        >
-          <Link href={`/stories/${story.id}`}>Lire la suite</Link>
-        </Button>
       </div>
     </Card>
   );

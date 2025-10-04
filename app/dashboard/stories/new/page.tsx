@@ -126,7 +126,7 @@ export default function NewStoryPage() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 px-10 py-5  "
+        className="space-y-5 px-4 py-5  "
       >
         <FormField
           control={form.control}

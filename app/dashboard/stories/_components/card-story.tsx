@@ -9,6 +9,7 @@ import Link from "next/link";
 import {
   EllipsisVertical,
   Heart,
+  ImageOff,
   MessageSquareTextIcon,
   Pencil,
   Trash,
@@ -84,20 +85,20 @@ export default function CardStory({ story }: Props) {
   }
 
   return (
-    <Card className=" cursor-pointer overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
+    <Card className="group cursor-pointer overflow-hidden  rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 pt-0 relative pb-16">
       <div className="relative w-full h-52 bg-muted cursor-default">
         {story.image ? (
           <Image
             src={story.image}
             alt={story.title}
             fill
-            className="object-cover"
+            className="object-cover border-b border-foreground"
             sizes="100vw"
             priority
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-            No image
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm border-b border-foreground">
+            <ImageOff size={50} className="text-primary" /> 
           </div>
         )}
         {story.category && (
@@ -110,7 +111,7 @@ export default function CardStory({ story }: Props) {
             <DropdownMenuTrigger
               asChild
               onClick={(e) => e.stopPropagation()}
-              className="absolute top-3 right-3 backdrop-blur-3xl rounded-xl"
+              className="absolute top-3 right-3 backdrop-blur-3xl rounded-xl border border-foreground"
             >
               <Button variant="ghost" size="icon">
                 <EllipsisVertical />
@@ -167,10 +168,10 @@ export default function CardStory({ story }: Props) {
         </DropdownMenu>
       </div>
 
-      <CardContent className="pt-0 space-y-3 cursor-default">
+      <CardContent className="pt-0 px-4  space-y-3 cursor-default">
         <Link href={`/stories/${story.id}`} className="block">
-          <h1 className="text-lg font-semibold font-mono">{story.title}</h1>
-          <p className="text-sm text-muted-foreground line-clamp-3">
+          <h1 className="text-lg font-semibold font-mono break-all line-clamp-1 group-hover:text-primary">{story.title}</h1>
+          <p className="text-sm text-muted-foreground break-all line-clamp-2 group-hover:text-primary">
             {story.descrption}
           </p>
         </Link>
@@ -181,7 +182,7 @@ export default function CardStory({ story }: Props) {
             </Badge>
           ))}
         </div>
-        <div className="flex items-center justify-between w-full">
+        <div className="flex bottom-0 left-0  p-4 absolute items-center justify-between w-full ">
           <span className="text-xs text-muted-foreground">
             {story.createdAt.toDateString()}
           </span>
@@ -190,14 +191,14 @@ export default function CardStory({ story }: Props) {
               onClick={handleToggleSave}
               size={"icon"}
               variant={"ghost"}
-              className="relative rounded-full hover:bg-rose-100"
+              className="relative rounded-full"
             >
               {story.saves.length > 0 ? (
-                <Heart className="text-rose-500 fill-rose-500" />
+                <Heart className="text-primary fill-primary" />
               ) : (
                 <Heart className="text-muted-foreground" />
               )}
-              <span className="absolute -top-2 -right-2 text-xs bg-rose-500 text-white px-1.5 py-0.5 rounded-full">
+              <span className="absolute -top-2 -right-2 text-xs bg-primary  px-1.5 py-0.5 rounded-full">
                 {story._count?.saves ?? 0}
               </span>
             </Button>

@@ -26,6 +26,10 @@ import {
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
+import LinkTiptap from "@tiptap/extension-link";
+import Code from "@tiptap/extension-code";
+import CodeBlock from "@tiptap/extension-code-block";
+import Strike from "@tiptap/extension-strike";
 
 export type StoryProps = Story & {
   saves: Save[];
@@ -99,7 +103,17 @@ export default function StoryClient({
   };
 
   const editor = useEditor({
-    extensions: [StarterKit, Underline],
+   extensions: [
+      StarterKit,
+      Underline,
+    LinkTiptap.configure({
+        openOnClick: true,
+        linkOnPaste: true,
+      }),
+      CodeBlock,
+      Code,
+      Strike,
+    ],
     content: story.content,
     editable: false,
     immediatelyRender: false,
@@ -295,7 +309,7 @@ export default function StoryClient({
           ))}
         </div>
       </div>
-      <div className="md:hidden mt-4 px-4">
+      <div className="md:hidden mt-4 ">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" className="w-full">

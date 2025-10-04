@@ -66,15 +66,15 @@ export default async function StoryPage({
   });
 
   return (
-    <div className="w-full mx-auto flex flex-col lg:flex-row  px-4 pt-6 overflow-hidden">
-      <div className="flex-1 lg:w-[77%]">
+    <div className="w-full mx-auto flex flex-col lg:flex-row  px-4 md:px-10 pt-6 overflow-hidden gap-5">
+      <div className="flex-1 lg:w-[70%] ">
         <StoryClient
           story={storyWithUser}
           isSaved={story.saves.some((save) => save.userId === user?.id)}
         />
       </div>
 
-      <div className="w-full lg:w-[25%] flex-shrink-0">
+      <div className="w-full lg:w-[30%]  ">
         <RecommendedStories stories={recommended} />
       </div>
     </div>

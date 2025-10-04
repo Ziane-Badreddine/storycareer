@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server";
 import React, { Suspense } from "react";
 import clerkClient from "@/lib/clerk";
 import Navbar from "../_components/navbar";
@@ -45,7 +44,6 @@ function StoriesLoading() {
 }
 
 async function StoriesContent() {
-  const user = await currentUser();
 
   const stories = await prisma.story.findMany({
     include: {
@@ -59,9 +57,6 @@ async function StoriesContent() {
       },
     },
     where: {
-      userId: {
-        not: user?.id,
-      },
       isPublished: true,
     },
     orderBy: {
