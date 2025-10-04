@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
@@ -20,6 +21,8 @@ export async function DELETE(
         id: id,
       },
     });
+
+    revalidatePath("/stories")
 
     return NextResponse.json("Story deleted successfully", { status: 200 });
   } catch (error) {
@@ -46,6 +49,8 @@ export async function GET(
         id: id,
       }
     });
+
+    
 
     return NextResponse.json(story, { status: 200 });
   } catch (error) {
@@ -78,6 +83,8 @@ export async function PUT(
         id: id,
       },
     });
+
+    revalidatePath("/stories")
 
     return NextResponse.json("Story updated successfully", { status: 200 });
   } catch (error) {
