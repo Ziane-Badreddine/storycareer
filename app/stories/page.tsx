@@ -7,6 +7,8 @@ import TopCommentsSection from "./_components/TopCommentsSection";
 import AllStories from "./_components/AllStories";
 import Link from "next/link";
 
+export const revalidate = 60; 
+
 function StoriesLoading() {
   return (
     <div className="w-full overflow-hidden">
@@ -62,6 +64,7 @@ async function StoriesContent() {
     orderBy: {
       createdAt: "desc",
     },
+    
   });
 
   const users = await clerkClient.users.getUserList();

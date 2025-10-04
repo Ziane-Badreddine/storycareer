@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -18,6 +19,9 @@ export async function POST(req: NextRequest) {
         ...body,
       },
     });
+
+
+    revalidatePath("/stories")
 
     return NextResponse.json("Story created successfully", { status: 201 });
   } catch (error) {
