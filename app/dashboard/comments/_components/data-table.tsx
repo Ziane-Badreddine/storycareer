@@ -22,8 +22,9 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import * as React from "react";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import { SearchIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -59,14 +60,19 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter comments..."
-          value={(table.getColumn("content")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("content")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+         <InputGroup  className="max-w-sm">
+          <InputGroupInput
+             placeholder="Filter comments..."
+            value={(table.getColumn("story")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("story")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+          <InputGroupAddon>
+            <SearchIcon />
+          </InputGroupAddon>
+        </InputGroup>
       </div>
       <div className="rounded-md border">
         <Table>

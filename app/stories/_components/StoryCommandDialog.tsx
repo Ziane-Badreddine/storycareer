@@ -28,9 +28,11 @@ export default function StoryCommandDialog() {
     data: stories,
     error,
     isLoading,
-  } = useSWR<Story[]>("/api/story/all", fetcher);
+    mutate, // 👈 used for revalidation
+  } = useSWR<Story[]>("/api/story/all", fetcher, {
+    revalidateOnFocus: false, 
+  });
 
-  // Keyboard shortcut (Cmd/Ctrl + K)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -42,19 +44,25 @@ export default function StoryCommandDialog() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    if (open) mutate();
+  }, [open, mutate]);
+
   return (
-    <div className="flex justify-center w-full ">
+    <div className="flex justify-center w-full">
       <Button
-        variant={"ghost"}
-        size={"icon"}
+        variant="ghost"
+        size="icon"
         className="rounded-full"
         onClick={() => setOpen(true)}
       >
         <Search className="w-5 h-5" />
       </Button>
 
-      <CommandDialog open={open} onOpenChange={setOpen}   >
-        <CommandInput placeholder="Search stories..." />
+      <CommandDialog open={open} onOpenChange={setOpen}>
+
+          <CommandInput placeholder="Search stories..." />
+
         <CommandList>
           {isLoading ? (
             <div className="flex justify-center items-center py-10">

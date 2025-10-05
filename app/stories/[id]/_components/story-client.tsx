@@ -3,7 +3,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader, Filter, Heart } from "lucide-react";
+import { Loader, Heart } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Story, Save, Comment } from "@prisma/client";
@@ -217,14 +217,6 @@ export default function StoryClient({
               {story.comments.length !== 1 ? "s" : ""}
             </h2>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-sm font-medium flex items-center gap-1"
-          >
-            <Filter className="w-4 h-4" />
-            Trier par
-          </Button>
         </div>
 
         <div className="flex items-start gap-3 mb-6">
