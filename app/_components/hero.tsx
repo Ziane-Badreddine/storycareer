@@ -1,6 +1,7 @@
 "use client";
 
 import CountUp from "@/components/animation/CountUp";
+import { Ripple } from "@/components/animation/ripple";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ import {
   FaChartBar,
   FaUsers,
   FaBookmark,
+  FaArrowRight,
 } from "react-icons/fa";
 
 interface HeroProps {
@@ -31,7 +33,7 @@ export default function Hero({ stats }: HeroProps) {
   const { totalUsers, totalStories, totalComments, totalSaves } = stats;
 
   return (
-    <section className="mt-32 mb-7 flex flex-col items-center justify-center gap-8 overflow-hidden">
+    <section className="mt-32 pb-20 flex flex-col items-center justify-center gap-8 overflow-hidden">
       <div className="inline-flex  items-center gap-2 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 px-4 py-2 rounded-full border border-primary/20 animate-fade-in">
         <StarIcon className="w-4 h-4 text-primary" />
         <span className="text-sm font-medium text-primary">
@@ -110,7 +112,9 @@ export default function Hero({ stats }: HeroProps) {
               duration={1}
               className="text-6xl font-bold "
             />
-            <p className="font-semibold text-xl text-center">Professionals Connected</p>
+            <p className="font-semibold text-xl text-center">
+              Professionals Connected
+            </p>
           </div>
           <div className="flex flex-col items-center justify-center gap-2 text-foreground">
             <div className=" rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 ">
@@ -124,7 +128,9 @@ export default function Hero({ stats }: HeroProps) {
               duration={1}
               className="text-6xl font-bold "
             />
-            <p className="font-semibold text-xl text-center">Career Stories Shared</p>
+            <p className="font-semibold text-xl text-center">
+              Career Stories Shared
+            </p>
           </div>
           <div className="flex flex-col items-center justify-center gap-2 text-foreground">
             <div className=" rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 ">
@@ -140,18 +146,20 @@ export default function Hero({ stats }: HeroProps) {
                 className="text-6xl font-bold "
               />
             </h3>
-            <p className="font-semibold text-xl text-center">Total Interactions</p>
+            <p className="font-semibold text-xl text-center">
+              Total Interactions
+            </p>
           </div>
         </div>
       </div>
 
       {/* Features Grid */}
-      <div className="w-full  py-10 px-4">
-        <div className="text-center space-y-2 mb-12">
-          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary text-center">
+      <div className="w-full  py-20 md:py-32 px-4">
+        <div className="text-center space-y-4 mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary text-center">
             Platform Features
           </h2>
-          <p className="text-muted-foreground text-lg ">
+          <p className=" text-lg md:text-xl ">
             Everything you need to share and discover career stories
           </p>
         </div>
@@ -216,6 +224,30 @@ export default function Hero({ stats }: HeroProps) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full py-20 md:py-32 px-6 flex flex-col items-center justify-center text-center gap-4 rounded-3xl relative ">
+        <div className="space-y-4 max-w-2xl">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-primary">
+            Ready to share your story?
+          </h2>
+          <p className=" text-base md:text-lg leading-relaxed">
+            Join a community of professionals sharing their journeys. Inspire
+            others, build your portfolio, and connect through meaningful
+            experiences.
+          </p>
+        </div>
+
+        <Link href={"/dashboard/stories/new"}>
+          {" "}
+          <Button
+            size="lg"
+            className="mt-4 bg-gradient-to-r from-primary via-primary/90 to-primary hover:opacity-90 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-primary/25"
+          >
+            Get Started Now
+            <FaArrowRight />
+          </Button>
+        </Link>
+        <Ripple />
       </div>
     </section>
   );
