@@ -32,7 +32,7 @@ const SOCIAL_LINKS = {
 
 export default async function AboutPage() {
   return (
-    <div className="min-h-screen bg-background py-20 lg:py-32 px-4">
+    <div className="min-h-screen bg-background mt-10 py-20 lg:py-32 px-4">
       <div className="container mx-auto ">
          <div className="text-center mb-16 space-y-4">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter capitalize">
@@ -44,7 +44,7 @@ export default async function AboutPage() {
         </div>
         <div className="max-w-5xl mx-auto  ">
           {/* Creator Section */}
-          <Card className="rounded-none bg-background border-double border-b-foreground border-t-0 border-x-0 pb-10  ">
+          <Card className="rounded-none bg-background border-double border-b-foreground border-t-0 border-x-0 pb-10 shadow-none  ">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">
@@ -143,7 +143,7 @@ export default async function AboutPage() {
           </Card>
 
           {/* Inspiration Section */}
-          <Card className="rounded-none bg-background border-double border-y-foreground border-x-0 py-10">
+          <Card className="rounded-none bg-background border-double border-y-foreground border-x-0 py-10 shadow-none">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">
@@ -179,7 +179,7 @@ export default async function AboutPage() {
           </Card>
 
           {/* Tech Stack */}
-          <Card className="rounded-none bg-background border-double border-x-0 border-b-0 pt-10 ">
+          <Card className="rounded-none bg-background border-double border-x-0 border-b-0 pt-10 shadow-none ">
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">

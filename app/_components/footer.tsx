@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full border-t border-muted-foreground/50 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-4 md:py-6">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-10 py-4 md:py-6 w-full">
         <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
           {/* Main content */}
           <div className="flex-1">

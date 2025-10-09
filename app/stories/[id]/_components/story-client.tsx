@@ -3,7 +3,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader, Heart } from "lucide-react";
+import { Loader, Heart, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { Story, Save, Comment } from "@prisma/client";
@@ -17,12 +17,12 @@ import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
 import Link from "next/link";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -30,6 +30,13 @@ import LinkTiptap from "@tiptap/extension-link";
 import Code from "@tiptap/extension-code";
 import CodeBlock from "@tiptap/extension-code-block";
 import Strike from "@tiptap/extension-strike";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 export type StoryProps = Story & {
   saves: Save[];
@@ -103,10 +110,10 @@ export default function StoryClient({
   };
 
   const editor = useEditor({
-   extensions: [
+    extensions: [
       StarterKit,
       Underline,
-    LinkTiptap.configure({
+      LinkTiptap.configure({
         openOnClick: true,
         linkOnPaste: true,
       }),
@@ -201,7 +208,7 @@ export default function StoryClient({
             ))}
           </div>
           <div className={cn("relative mt-4")}>
-              {editor && <EditorContent editor={editor} />}
+            {editor && <EditorContent editor={editor} />}
           </div>
 
           {/* Tags */}
@@ -301,59 +308,71 @@ export default function StoryClient({
           ))}
         </div>
       </div>
-      <div className="md:hidden mt-4 ">
-        <Sheet>
-          <SheetTrigger asChild>
+      <div className="md:hidden mt-4">
+        <Drawer>
+          <DrawerTrigger asChild>
             <Button variant="outline" className="w-full">
               Voir les commentaires ({story.comments.length})
             </Button>
-          </SheetTrigger>
-          <SheetContent side="bottom" className="h-full flex flex-col">
-            <SheetHeader>
-              <SheetTitle>Commentaires</SheetTitle>
-            </SheetHeader>
+          </DrawerTrigger>
+
+          <DrawerContent className="flex flex-col gap-0 h-[75%]">
+            <DrawerHeader className="border-b">
+              <DrawerTitle className="text-xl">Commentaires</DrawerTitle>
+            </DrawerHeader>
 
             {/* Liste des commentaires - scrollable */}
-            <div className="flex-1 overflow-y-auto px-4 mt-4">
-              <div className="space-y-6 pb-4">
-                {story.comments.length === 0 && (
-                  <p className="text-muted-foreground text-sm">
-                    Aucun commentaire pour le moment.
-                  </p>
-                )}
-                {story.comments.map((c) => (
-                  <div key={c.id} className="flex gap-3 items-start group">
-                    <Link
-                      href={`/user/${c.user.id}`}
-                      className="hover:opacity-80 transition"
-                    >
-                      <Avatar className="h-8 w-8 flex-shrink-0">
-                        <AvatarImage src={c.user.avatar} />
-                        <AvatarFallback>
-                          {c.user.username.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                    </Link>
-                    <div className="flex flex-col flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm">
-                          {c.user.username}
-                        </span>
-                        <span className="text-xs text-stone-400">
-                          il y a{" "}
-                          {formatDistanceToNow(new Date(c.createdAt), {
-                            addSuffix: false,
-                            locale: fr,
-                          })}
-                        </span>
+            <div className="flex-1 items-center justify-center  overflow-y-auto px-4 py-4">
+              {story.comments.length === 0 ? (
+                <div className="h-full flex items-center justify-center">
+                  <Empty>
+                    <EmptyHeader>
+                      <EmptyMedia variant="icon" >
+                        <MessageSquare className="text-primary" />
+                      </EmptyMedia>
+                      <EmptyTitle>No comments yet</EmptyTitle>
+                      <EmptyDescription>
+                        Be the first to share your thoughts!
+                      </EmptyDescription>
+                    </EmptyHeader>
+                  </Empty>
+                </div>
+              ) : (
+                <div className="space-y-6   ">
+                  {story.comments.map((c) => (
+                    <div key={c.id} className="flex gap-3 items-start group">
+                      <Link
+                        href={`/user/${c.user.id}`}
+                        className="hover:opacity-80 transition"
+                      >
+                        <Avatar className="h-8 w-8 flex-shrink-0">
+                          <AvatarImage src={c.user.avatar} />
+                          <AvatarFallback>
+                            {c.user.username.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                      </Link>
+                      <div className="flex flex-col flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-sm">
+                            {c.user.username}
+                          </span>
+                          <span className="text-xs text-stone-400">
+                            il y a{" "}
+                            {formatDistanceToNow(new Date(c.createdAt), {
+                              addSuffix: false,
+                              locale: fr,
+                            })}
+                          </span>
+                        </div>
+                        <p className="text-sm mt-1 whitespace-pre-line break-all max-w-full overflow-hidden">
+                          {c.content}
+                        </p>
                       </div>
-                      <p className="text-sm mt-1 whitespace-pre-line break-all max-w-full overflow-hidden">
-                        {c.content}
-                      </p>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Ajout de commentaire - sticky at bottom */}
@@ -402,8 +421,8 @@ export default function StoryClient({
                 </div>
               </div>
             </div>
-          </SheetContent>
-        </Sheet>
+          </DrawerContent>
+        </Drawer>
       </div>
     </div>
   );
