@@ -81,11 +81,11 @@ export default function Hero({ stats }: HeroProps) {
       {/* Subtitle / Description */}
       <p className="text-muted-foreground/90 text-sm md:text-lg animate-fade-in-delay [text-wrap:balance] leading-relaxed text-center max-w-xs  sm:max-w-4xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl">
         Explore{" "}
-        <strong className="font-bold text-foreground underline decoration-2 underline-offset-4">
+        <strong className="font-bold text-foreground underline decoration-primary decoration-wavy underline-offset-4">
           real stories
         </strong>{" "}
         and{" "}
-        <strong className="font-bold text-foreground underline decoration-2 underline-offset-4">
+        <strong className="font-bold text-foreground underline decoration-primary   decoration-wavy underline-offset-4">
           genuine voices
         </strong>
         . Whether you&apos;re a storyteller or a reader,{" "}
@@ -93,9 +93,8 @@ export default function Hero({ stats }: HeroProps) {
         <strong className="font-bold text-foreground">discover</strong>, and{" "}
         <strong className="font-bold text-foreground">connect</strong> through
         powerful words. Save your favorites, follow inspiring writers, and join
-        a
-        <strong className="font-bold underline text-foreground decoration-2 underline-offset-4">
-          {" "}
+        a {" "}
+        <strong className="font-bold underline text-foreground decoration-primary underline-offset-4   decoration-wavy">
           community built on empathy and creativity
         </strong>
         .
@@ -105,7 +104,7 @@ export default function Hero({ stats }: HeroProps) {
         <Link href={"/dashboard/stories/new"}>
           <Button
             size={"lg"}
-            className="bg-gradient-to-r from-primary via-primary/90 to-primary hover:opacity-90 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-primary/25 "
+             className="h-12 cursor-pointer rounded-full px-8 text-base shadow-md transition-transform duration-300 hover:translate-y-[-2px] hover:shadow-lg"
           >
             <Pencil className=" w-5 h-5" />
             Start Writing

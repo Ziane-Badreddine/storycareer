@@ -99,7 +99,7 @@ export default function Navbar() {
                 <Logo />
               </SheetTitle>
             </SheetHeader>
-            <div className="flex flex-col  justify-center gap-5 py-5 px-10 ">
+            <div className="flex flex-col  justify-center gap-5 py-5 px-4 ">
               {navLinks.map(({ label, href }, i) => {
                 return (
                   <Link

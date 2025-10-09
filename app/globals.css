@@ -14,7 +14,7 @@
   --card-foreground: oklch(0.2686 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2686 0 0);
-  --primary: oklch(0.7686 0.1647 70.0804);
+  --primary: rgb(245, 158, 10);
   --primary-foreground: oklch(0 0 0);
   --secondary: oklch(0.967 0.0029 264.5419);
   --secondary-foreground: oklch(0.4461 0.0263 256.8018);
@@ -269,9 +269,9 @@
 
   /* Links */
   a {
-    @apply text-primary underline decoration-primary/30 underline-offset-2 
+    @apply text-foreground underline decoration-foreground  underline-offset-2 decoration-2 
            hover:text-primary/80 hover:decoration-primary/60 
-           transition-colors cursor-pointer;
+           transition-colors cursor-pointer decoration-dashed;
   }
 
   /* Inline code */

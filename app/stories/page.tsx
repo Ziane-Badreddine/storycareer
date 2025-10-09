@@ -6,6 +6,7 @@ import TopLikesSection from "./_components/TopLikesSection";
 import TopCommentsSection from "./_components/TopCommentsSection";
 import AllStories from "./_components/AllStories";
 import Link from "next/link";
+import Footer from "../_components/footer";
 
 export const revalidate = 60; 
 
@@ -44,6 +45,7 @@ function StoriesLoading() {
     </div>
   );
 }
+
 
 async function StoriesContent() {
 
@@ -99,7 +101,7 @@ async function StoriesContent() {
     return (
       <div className="w-full overflow-hidden">
         <Navbar />
-        <div className="mt-24 w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center gap-8 px-4 min-h-[60vh]">
+        <div className="mt-24 md:px-10  w-full mx-auto flex flex-col items-center justify-center gap-8 px-4 min-h-[60vh]">
           <div className="text-center space-y-4">
             <h2 className="text-2xl font-bold text-muted-foreground">
               No Stories Yet
@@ -115,19 +117,7 @@ async function StoriesContent() {
             </Link>
           </div>
         </div>
-        <footer className="border-t border-muted-foreground/50 shadow-xs w-screen pb-8 pt-5 flex justify-center lg:justify-start items-center px-10">
-          <p className="text-xs md:text-base lg:text-lg max-w-xl md:max-w-3xl">
-            Built by{" "}
-            <Link href={"/"} className="underline underline-offset-2">
-              StoryCareer
-            </Link>
-            . The source code is available on{" "}
-            <Link href={"/#"} className="underline underline-offset-2">
-              Github
-            </Link>
-            .
-          </p>
-        </footer>
+      <Footer/>
       </div>
     );
   }
@@ -135,24 +125,12 @@ async function StoriesContent() {
   return (
     <div className="w-full overflow-hidden">
       <Navbar />
-      <div className="mt-24 w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center gap-8 px-4">
+      <div className="mt-24 w-full md:px-10   mx-auto flex flex-col items-center justify-center gap-8 px-4">
         <TopLikesSection stories={storiesTopLikes || []} />
         <TopCommentsSection stories={storiesTopComments || []} />
         <AllStories stories={allstories || []} />
       </div>
-      <footer className="border-t border-muted-foreground/50 shadow-xs w-full  py-5 flex justify-center lg:justify-start items-center px-10">
-        <p className="text-xs md:text-base lg:text-lg max-w-xl md:max-w-3xl">
-          Built by{" "}
-          <Link href={"/"} className="underline underline-offset-2">
-            StoryCareer
-          </Link>
-          . The source code is available on{" "}
-          <Link href={"/#"} className="underline underline-offset-2">
-            Github
-          </Link>
-          .
-        </p>
-      </footer>
+  <Footer/>
     </div>
   );
 }

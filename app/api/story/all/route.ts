@@ -13,6 +13,9 @@ export async function GET() {
 
   try {
     const stories = await prisma.story.findMany({
+      where: {
+        isPublished: true
+      }
     });
     return NextResponse.json(stories, { status: 200 });
   } catch (error) {

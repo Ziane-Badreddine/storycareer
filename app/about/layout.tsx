@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Navbar from "../_components/navbar";
-import Link from "next/link";
+import Footer from "../_components/footer";
 
 export const metadata: Metadata = {
   title: "About | StoryCareer",
@@ -40,19 +40,7 @@ export default function AboutLayout({
     <section className="min-h-screen bg-background">
       <Navbar />
       {children}
-      <footer className="border-t border-muted-foreground/50 shadow-xs w-full  py-5 flex justify-center lg:justify-start items-center px-10">
-        <p className="text-xs md:text-base lg:text-lg max-w-xl md:max-w-3xl">
-          Built by{" "}
-          <Link href={"/"} className="underline underline-offset-2">
-            StoryCareer
-          </Link>
-          . The source code is available on{" "}
-          <Link href={"/#"} className="underline underline-offset-2">
-            Github
-          </Link>
-          .
-        </p>
-      </footer>
+  <Footer/>
     </section>
   );
 }

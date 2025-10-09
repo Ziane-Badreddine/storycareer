@@ -53,6 +53,7 @@ export default async function StoryPage({
   const recommended = await prisma.story.findMany({
     where: {
       NOT: { id: story.id },
+       isPublished: true,
     },
     orderBy: { createdAt: "desc" },
     include: {

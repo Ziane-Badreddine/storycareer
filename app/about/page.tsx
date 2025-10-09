@@ -32,11 +32,19 @@ const SOCIAL_LINKS = {
 
 export default async function AboutPage() {
   return (
-    <div className="min-h-screen bg-background mt-20 px-4">
-      <div className="container mx-auto p-2 sm:p-4 lg:p-6 space-y-8 pt-20 pb-12">
-        <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-background py-20 lg:py-32 px-4">
+      <div className="container mx-auto ">
+         <div className="text-center mb-16 space-y-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter capitalize">
+            Building the Future of <span className=" text-primary mt-2">Career Storytelling</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Connecting professionals through authentic career experiences and inspiring journeys
+          </p>
+        </div>
+        <div className="max-w-5xl mx-auto  ">
           {/* Creator Section */}
-          <Card>
+          <Card className="rounded-none bg-background border-double border-b-foreground border-t-0 border-x-0 pb-10  ">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">
@@ -135,7 +143,7 @@ export default async function AboutPage() {
           </Card>
 
           {/* Inspiration Section */}
-          <Card>
+          <Card className="rounded-none bg-background border-double border-y-foreground border-x-0 py-10">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">
@@ -171,7 +179,7 @@ export default async function AboutPage() {
           </Card>
 
           {/* Tech Stack */}
-          <Card>
+          <Card className="rounded-none bg-background border-double border-x-0 border-b-0 pt-10 ">
             <CardHeader className="pb-6">
               <CardTitle className="text-2xl font-bold flex items-center gap-3">
                 <div className="bg-primary p-2 rounded-lg">
