@@ -43,7 +43,7 @@ export default async function AboutPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 divide-x-1 divide-dashed divide-primary ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 divide-x-1  divide-primary ">
           {/* Creator Section */}
           <Card className="rounded-none bg-background  shadow-none col-span-1  ">
             <CardHeader className="pb-4 justify-center">
@@ -174,7 +174,7 @@ export default async function AboutPage() {
           </Card>
 
           {/* Tech Stack */}
-          <Card className="rounded-none bg-background  shadow-none col-span-1 md:col-span-2 xl:col-span-2 border-foreground border-t-0 lg:border-t border-dashed lg:border-l-0 ">
+          <Card className="rounded-none bg-background  shadow-none col-span-1 md:col-span-2 xl:col-span-2 border-foreground border-t-0 lg:border-t  lg:border-l-0 ">
             <CardHeader className="pb-6 text-center">
               <CardTitle className="text-2xl font-bold ">
                 Built with Modern Tech

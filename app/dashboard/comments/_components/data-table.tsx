@@ -23,7 +23,11 @@ import {
 
 import { Button } from "@/components/ui/button";
 import * as React from "react";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import { SearchIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
@@ -39,7 +43,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-   const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = React.useState({});
   const table = useReactTable({
     data,
     columns,
@@ -49,7 +53,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-     onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
       columnFilters,
@@ -60,12 +64,12 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
-         <InputGroup  className="max-w-sm">
+        <InputGroup className="max-w-sm">
           <InputGroupInput
-             placeholder="Filter comments..."
-            value={(table.getColumn("story")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter comments..."
+            value={(table.getColumn("content")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("story")?.setFilterValue(event.target.value)
+              table.getColumn("content")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />

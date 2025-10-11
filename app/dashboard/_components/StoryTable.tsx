@@ -52,7 +52,7 @@ export function StoryTable({ stories }: StoryTableProps) {
               {stories.map((story) => (
                 <TableRow 
                   key={story.id} 
-                  className="cursor-pointer hover:bg-muted/50 transition-colors"
+                  className="cursor-pointer hover:bg-primary/50 transition-colors "
                   onClick={() => window.location.href = `/stories/${story.id}`}
                 >
                   <TableCell className="font-medium">{story.title}</TableCell>

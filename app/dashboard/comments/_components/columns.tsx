@@ -25,6 +25,8 @@ interface Comment {
   createdAt: Date;
 }
 
+
+
 const CellAction = ({ comment }: { comment: Comment }) => {
   const router = useRouter();
 
@@ -43,7 +45,7 @@ const CellAction = ({ comment }: { comment: Comment }) => {
       router.refresh();
     } catch {
       toast("Une erreur est survenue");
-    } 
+    }
   };
 
   return (
@@ -66,9 +68,7 @@ const CellAction = ({ comment }: { comment: Comment }) => {
             Voir l&apos;histoire
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleDelete}>
-          Supprimer
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleDelete}>Supprimer</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -77,12 +77,8 @@ const CellAction = ({ comment }: { comment: Comment }) => {
 export const columns: ColumnDef<Comment>[] = [
   {
     id: "#",
-    header: () => (
-       <div>#</div>
-    ),
-    cell: ({ row }) => (
-      <div>{row.index + 1}</div>
-    ),
+    header: () => <div className="text-center">#</div>,
+    cell: ({ row }) => <div className="text-center">{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },

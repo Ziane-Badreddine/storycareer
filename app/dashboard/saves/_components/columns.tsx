@@ -1,6 +1,6 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,16 @@ interface Save {
   createdAt: Date;
 }
 
+  const storyFilter: FilterFn<Save> = (row, columnId, filterValue) => {
+    const story = row.getValue<Story>(columnId);
+    const value = filterValue.toLowerCase();
+
+    return (
+      story?.title?.toLowerCase().includes(value) ||
+      story?.descrption?.toLowerCase().includes(value)
+    );
+  };
+
 const CellAction = ({ save }: { save: Save }) => {
   const router = useRouter();
 
@@ -40,8 +50,10 @@ const CellAction = ({ save }: { save: Save }) => {
       router.refresh();
     } catch {
       toast("Une erreur est survenue");
-    } 
+    }
   };
+
+
 
   return (
     <DropdownMenu>
@@ -53,13 +65,9 @@ const CellAction = ({ save }: { save: Save }) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/stories/${save.story.id}`}>
-            Voir l&apos;histoire
-          </Link>
+          <Link href={`/stories/${save.story.id}`}>Voir l&apos;histoire</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleDelete}>
-          Supprimer
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleDelete}>Supprimer</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -68,12 +76,8 @@ const CellAction = ({ save }: { save: Save }) => {
 export const columns: ColumnDef<Save>[] = [
   {
     id: "#",
-    header: () => (
-       <div>#</div>
-    ),
-    cell: ({ row }) => (
-      <div>{row.index + 1}</div>
-    ),
+    header: () => <div>#</div>,
+    cell: ({ row }) => <div>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -100,6 +104,7 @@ export const columns: ColumnDef<Save>[] = [
         </div>
       );
     },
+    filterFn: storyFilter,
   },
   {
     accessorKey: "createdAt",
@@ -115,7 +120,7 @@ export const columns: ColumnDef<Save>[] = [
     cell: ({ getValue }) => new Date(getValue<Date>()).toDateString(),
     enableSorting: true,
   },
-    {
+  {
     accessorKey: "story.createdAt",
     header: ({ column }) => (
       <Button
