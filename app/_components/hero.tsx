@@ -104,7 +104,7 @@ export default function Hero({ stats }: HeroProps) {
         <Link href={"/dashboard/stories/new"}>
           <Button
             size={"lg"}
-            className="h-12 cursor-pointer rounded-full px-8 text-base shadow-md transition-transform duration-300 hover:translate-y-[-2px] hover:shadow-lg"
+            className="h-12 cursor-pointer rounded-full px-8 text-base shadow-md transition-transform duration-300 hover:translate-y-[-2px] hover:shadow-lg  ring-foreground"
           >
             <Pencil className=" w-5 h-5" />
             Start Writing

@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const user = await currentUser();
   if (user && user.id === id) {
     return {
-        title: `me- Profil StoryCareer`,
+        title: `me | Profil StoryCareer`,
         description: `Découvrez le profil et les stories de ${user.username} sur StoryCareer`,
         openGraph: {
-          title: `me- Profil StoryCareer`,
+          title: `me | Profil StoryCareer`,
           description: `Découvrez le profil et les stories de ${user.username} sur StoryCareer`,
           images: [user.imageUrl],
         },
@@ -26,10 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const userData = await clerkClient.users.getUser(id);
 
   return {
-    title: `${userData.username} - Profil StoryCareer`,
+    title: `${userData.username} | Profil StoryCareer`,
     description: `Découvrez le profil et les stories de ${userData.username} sur StoryCareer`,
     openGraph: {
-      title: `${userData.username} - Profil StoryCareer`,
+      title: `${userData.username} | Profil StoryCareer`,
       description: `Découvrez le profil et les stories de ${userData.username} sur StoryCareer`,
       images: [userData.imageUrl],
     },

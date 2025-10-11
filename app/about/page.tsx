@@ -59,7 +59,7 @@ export default async function AboutPage() {
             <CardContent className="space-y-6">
               <div className="flex flex-col sm:flex-row items-start justify-center gap-8">
                 <div className="relative ">
-                  <Avatar className="h-32 w-32 ring-4 ring-primary/10">
+                  <Avatar className="h-32 w-32 ring-4 ring-primary ">
                     <AvatarImage
                       src="https://avatars.githubusercontent.com/u/183768832?v=4"
                       alt="Ziane Bader Eddine"
