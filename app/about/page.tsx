@@ -8,9 +8,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { StarIcon } from "lucide-react";
 import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
-import { FiZap } from "react-icons/fi";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -32,32 +30,32 @@ const SOCIAL_LINKS = {
 
 export default async function AboutPage() {
   return (
-    <div className="min-h-screen bg-background mt-10 py-20 lg:py-32 px-4">
-      <div className="container mx-auto ">
-         <div className="text-center mb-16 space-y-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter capitalize">
-            Building the Future of <span className=" text-primary mt-2">Career Storytelling</span>
+    <div className="min-h-screen bg-background mt-10 py-20 lg:py-32 px-4 md:px-10">
+      <div className=" mx-auto ">
+        <div className="text-center mb-16 space-y-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
+            The Story Behind <span className="text-primary">StoryCareer</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Connecting professionals through authentic career experiences and inspiring journeys
+          <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto">
+            Discover the vision, people, and technologies shaping a platform
+            that celebrates real career journeys and authentic professional
+            growth.
           </p>
         </div>
-        <div className="max-w-5xl mx-auto  ">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 divide-x-1 divide-dashed divide-primary ">
           {/* Creator Section */}
-          <Card className="rounded-none bg-background border-double border-b-foreground border-t-0 border-x-0 pb-10 shadow-none  ">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl font-bold flex items-center gap-3">
-                <div className="bg-primary p-2 rounded-lg">
-                  <StarIcon className="w-5 h-5 text-primary-foreground" />
-                </div>
+          <Card className="rounded-none bg-background  shadow-none col-span-1  ">
+            <CardHeader className="pb-4 justify-center">
+              <CardTitle className="text-2xl font-bold text-center">
                 Meet the Creator
               </CardTitle>
               <CardDescription className="text-lg">
                 The mind behind StoryCareer
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex flex-col sm:flex-row items-start justify-center gap-8">
+            <CardContent className="space-y-6 text-center">
+              <div className="flex flex-col  items-center justify-center gap-8">
                 <div className="relative ">
                   <Avatar className="h-32 w-32 ring-4 ring-primary ">
                     <AvatarImage
@@ -86,14 +84,14 @@ export default async function AboutPage() {
                     </p>
                   </div>
 
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-2 flex-wrap  items-center justify-center">
                     <Badge className="px-4 py-2 bg-primary text-primary-foreground">
                       S1T
                     </Badge>
                     <Badge className="px-4 py-2">Full Stack Developer</Badge>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2 pt-2  items-center justify-center">
                     <Link
                       href={SOCIAL_LINKS.github}
                       target="_blank"
@@ -143,12 +141,9 @@ export default async function AboutPage() {
           </Card>
 
           {/* Inspiration Section */}
-          <Card className="rounded-none bg-background border-double border-y-foreground border-x-0 py-10 shadow-none">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl font-bold flex items-center gap-3">
-                <div className="bg-primary p-2 rounded-lg">
-                  <StarIcon className="w-5 h-5 text-primary-foreground" />
-                </div>
+          <Card className="rounded-none bg-background col-span-1 shadow-none">
+            <CardHeader className="pb-4 text-center">
+              <CardTitle className="text-2xl font-bold ">
                 Special Thanks
               </CardTitle>
               <CardDescription className="text-lg">
@@ -156,16 +151,16 @@ export default async function AboutPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col sm:flex-row items-start gap-6">
-                <Avatar className="h-24 w-24 ring-4 ring-primary/10">
+              <div className="flex flex-col  items-center gap-6 text-center">
+                <Avatar className="h-32 w-32 ring-4 ring-foreground">
                   <AvatarImage src="/ayman.jpg" alt="Ayman" />
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
                     A
                   </AvatarFallback>
                 </Avatar>
-                <div className="space-y-3 flex-1">
-                  <h3 className="text-2xl font-bold">Ayman</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                <div className="space-y-4 flex-1">
+                  <h3 className="text-3xl font-bold mt-2">Ayman</h3>
+                  <p className="text-muted-foreground  leading-relaxed ">
                     Special thanks to Ayman for the inspiration and guidance in
                     creating StoryCareer. His insights and mentorship were
                     invaluable in shaping this project into what it is today.
@@ -179,12 +174,9 @@ export default async function AboutPage() {
           </Card>
 
           {/* Tech Stack */}
-          <Card className="rounded-none bg-background border-double border-x-0 border-b-0 pt-10 shadow-none ">
-            <CardHeader className="pb-6">
-              <CardTitle className="text-2xl font-bold flex items-center gap-3">
-                <div className="bg-primary p-2 rounded-lg">
-                  <FiZap className="w-6 h-6 text-primary-foreground" />
-                </div>
+          <Card className="rounded-none bg-background  shadow-none col-span-1 md:col-span-2 xl:col-span-2 border-foreground border-t-0 lg:border-t border-dashed lg:border-l-0 ">
+            <CardHeader className="pb-6 text-center">
+              <CardTitle className="text-2xl font-bold ">
                 Built with Modern Tech
               </CardTitle>
               <CardDescription className="text-lg">
@@ -192,7 +184,7 @@ export default async function AboutPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-6">
                 <div className="group space-y-3 text-center p-4 md:p-6 rounded-xl bg-muted hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div className="bg-background rounded-lg p-3 w-fit mx-auto group-hover:scale-110 transition-transform">
                     <SiNextdotjs className="text-3xl" />
@@ -267,7 +259,14 @@ export default async function AboutPage() {
                     Zod
                   </Badge>
                 </div>
+            
               </div>
+                              <blockquote className="border-l-4 border-primary  pl-4 py-2 my-4 
+           italic text-foreground/80 bg-muted/30 rounded-r text-lg">
+                 &quot;Together, these technologies create a modern, reliable, and
+                  efficient ecosystem that enables rapid development and
+                  delivers a seamless user experience.&quot;
+                </blockquote>
             </CardContent>
           </Card>
         </div>
