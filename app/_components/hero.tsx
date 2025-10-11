@@ -41,8 +41,8 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0},
-  show: { opacity: 1},
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
 };
 
 export default function Hero({ stats }: HeroProps) {
@@ -93,7 +93,7 @@ export default function Hero({ stats }: HeroProps) {
         <strong className="font-bold text-foreground">discover</strong>, and{" "}
         <strong className="font-bold text-foreground">connect</strong> through
         powerful words. Save your favorites, follow inspiring writers, and join
-        a {" "}
+        a{" "}
         <strong className="font-bold underline text-foreground decoration-primary underline-offset-4   decoration-wavy">
           community built on empathy and creativity
         </strong>
@@ -104,7 +104,7 @@ export default function Hero({ stats }: HeroProps) {
         <Link href={"/dashboard/stories/new"}>
           <Button
             size={"lg"}
-             className="h-12 cursor-pointer rounded-full px-8 text-base shadow-md transition-transform duration-300 hover:translate-y-[-2px] hover:shadow-lg"
+            className="h-12 cursor-pointer rounded-full px-8 text-base shadow-md transition-transform duration-300 hover:translate-y-[-2px] hover:shadow-lg"
           >
             <Pencil className=" w-5 h-5" />
             Start Writing
@@ -112,7 +112,7 @@ export default function Hero({ stats }: HeroProps) {
         </Link>
       </div>
 
-      <div className="animate-float mt-8 relative group mb-20 md:mb-32 ">
+      <div className="animate-float mt-8 relative group mb-20 md:mb-32  ">
         <div className="absolute -inset-1 bg-gradient-to-r from-primary via-primary/50 to-primary opacity-30 blur-xl group-hover:opacity-40 transition duration-1000"></div>
         <div className="relative">
           <Image
@@ -125,7 +125,20 @@ export default function Hero({ stats }: HeroProps) {
         </div>
       </div>
 
-      <div className="w-full bg-primary py-10 px-4">
+      <div className="w-full bg-primary px-4  py-10 pt-20 relative ">
+        <div className="custom-shape-divider-top-1760179879">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z"
+              className="shape-fill"
+            ></path>
+          </svg>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 w-full py-10 max-w-4xl mx-auto  ">
           <div className="flex flex-col items-center justify-center gap-2 text-foreground">
             <div className=" rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 ">
@@ -197,8 +210,11 @@ export default function Hero({ stats }: HeroProps) {
           viewport={{ once: true }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-12 px-4"
         >
-          <motion.div  variants={item}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }} className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg">
+          <motion.div
+            variants={item}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg"
+          >
             <div className="bg-primary/10 p-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300 rounded-full">
               <FaRegEdit className="text-3xl text-primary" />
             </div>
@@ -213,8 +229,11 @@ export default function Hero({ stats }: HeroProps) {
             </div>
           </motion.div>
 
-          <motion.div  variants={item}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }} className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg">
+          <motion.div
+            variants={item}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg"
+          >
             <div className="bg-primary/10 rounded-full p-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
               <FaRegCommentDots className="text-3xl text-primary" />
             </div>
@@ -229,8 +248,11 @@ export default function Hero({ stats }: HeroProps) {
             </div>
           </motion.div>
 
-          <motion.div  variants={item}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }} className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg">
+          <motion.div
+            variants={item}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg"
+          >
             <div className="bg-primary/10 rounded-full p-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
               <FaBookmark className="text-3xl text-primary" />
             </div>
@@ -245,8 +267,11 @@ export default function Hero({ stats }: HeroProps) {
             </div>
           </motion.div>
 
-          <motion.div  variants={item}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }} className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg">
+          <motion.div
+            variants={item}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="group flex flex-col items-center text-center gap-4 p-6 rounded-xl bg-gradient-to-br from-primary/5 hover:to-background transition-all duration-300 cursor-pointer border  border-primary/10 shadow-lg"
+          >
             <div className="bg-primary/10 rounded-full p-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
               <FaChartBar className="text-3xl text-primary" />
             </div>

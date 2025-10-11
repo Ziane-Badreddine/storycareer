@@ -45,6 +45,7 @@ interface Props {
 
 export default function CardStory({ story }: Props) {
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const [isLoadingDeleted,setIsLoadingDeleted] = useState(false)
   const { user } = useUser();
   const router = useRouter();
@@ -61,6 +62,7 @@ export default function CardStory({ story }: Props) {
     }finally{
       setIsLoadingDeleted(false)
       setOpen(false);
+      setOpenDialog(false)
     }
   }
 
@@ -134,7 +136,7 @@ export default function CardStory({ story }: Props) {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Dialog>
+              <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                 <DialogTrigger asChild>
                   <Button
                     className="w-full justify-start mr-5"
@@ -156,7 +158,9 @@ export default function CardStory({ story }: Props) {
                     <div className="flex items-center justify-end gap-2 mt-3">
                       <Button
                         variant={"outline"}
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                          setOpenDialog(false)
+                        }}
                       >
                         cancel
                       </Button>

@@ -163,7 +163,7 @@
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 
-    --animate-fade-in-scale: fade-in-scale 0.3s ease-out;
+  --animate-fade-in-scale: fade-in-scale 0.3s ease-out;
 
   /* Fade-in avec scale */
   @keyframes fade-in-scale {
@@ -181,7 +181,8 @@
   --animate-ripple: ripple 1.5s ease-in-out infinite;
 
   @keyframes ripple {
-    0%, 100% {
+    0%,
+    100% {
       transform: translate(-50%, -50%) scale(1);
     }
     50% {
@@ -263,7 +264,10 @@
   }
 
   /* Nested lists */
-  ul ul, ol ol, ul ol, ol ul {
+  ul ul,
+  ol ol,
+  ul ol,
+  ol ul {
     @apply my-2 ml-4;
   }
 
@@ -309,13 +313,18 @@
   strong {
     @apply font-semibold text-foreground;
   }
-  
+
   em {
     @apply italic;
   }
 
   /* Better spacing between different elements */
-  * + h1, * + h2, * + h3, * + h4, * + h5, * + h6 {
+  * + h1,
+  * + h2,
+  * + h3,
+  * + h4,
+  * + h5,
+  * + h6 {
     @apply mt-8;
   }
 
@@ -342,4 +351,25 @@
 *::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 1px;
+}
+
+.custom-shape-divider-top-1760179879 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1760179879 svg {
+    position: relative;
+    display: block;
+    width: calc(110% + 1.3px);
+    height: 143px;
+}
+
+.custom-shape-divider-top-1760179879 .shape-fill {
+    fill: var(--background);
 }
