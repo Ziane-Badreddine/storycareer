@@ -47,7 +47,7 @@ export default function StoryCommandDialog() {
   // Raccourci clavier Cmd/Ctrl + K
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "k" || e.metaKey || e.ctrlKey) {
+      if (e.key === "k" || (e.metaKey && e.ctrlKey)) {
         e.preventDefault();
         setOpen((prev) => !prev);
       }
