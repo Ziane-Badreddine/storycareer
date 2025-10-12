@@ -18,18 +18,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Loader, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { CategoryCommandSelect } from "./_components/CategoryCommandSelect";
 import { Switch } from "@/components/ui/switch";
-import ImageForm from "./_components/ImageForm";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import RishEditor from "@/components/RichTextEditor";
+import ImageForm from "../../new/_components/ImageForm";
+import { CategoryCommandSelect } from "../../new/_components/CategoryCommandSelect";
+import RichTextEditor from "@/components/RichTextEditor";
+import { Story } from "@prisma/client";
+
+interface EditFormProps {
+    story: Story
+}
 
 const formSchema = z.object({
   title: z.string().trim().min(3, "Title is required").max(200),
   descrption: z.string().trim(),
-  content: z.string(),
+  content: z.string().trim().min(200),
   tags: z.array(z.string()).optional(),
   category: z.string().min(3).max(50).optional(),
   isPublished: z.boolean(),
@@ -76,7 +81,7 @@ const TagInput = ({
       {value?.map((tag, i) => (
         <Badge
           key={i}
-          className="h-8"
+          className="h-8 cursor-pointer"
           variant={"secondary"}
           onClick={() => removeTag(tag)}
         >
@@ -88,50 +93,65 @@ const TagInput = ({
   );
 };
 
-export default function NewStoryPage() {
+
+export default function EditForm({story}: EditFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      descrption: "",
-      content: "",
-      tags: [],
-      isPublished: true,
+      title: story.title,
+      descrption: story.descrption,
+      content: story.content,
+      tags: story.tags,
+      category: story.category  || undefined,
+      isPublished: story.isPublished,
+      image: story.image || undefined,
     },
   });
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+
+
+
+
+  
+
+
+
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const res = await axios.post("/api/story", {
+      const res = await axios.put(`/api/story/${story.id}`, {
         ...values,
       });
 
-      if (res.status === 201) {
-        toast.success("story are created");
+      if (res.status === 200) {
+        toast.success("Story updated successfully");
         router.push("/dashboard/stories");
       } else {
         toast.error(res.statusText);
       }
     } catch {
-      toast.error("something be wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
   }
+  
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 px-4 py-5  "
+        className="space-y-5 px-4 py-5"
       >
         <FormField
           control={form.control}
           name="image"
           render={({ field }) => (
-            <FormItem className="flex flex-col items-start border-0 shadow-sm w-full lg:w-1/2">
+            <FormItem className="flex flex-col items-start rounded-lg border p-3 shadow-sm w-full lg:w-1/2">
               <div className="space-y-1 w-full">
                 <FormLabel>Story Image</FormLabel>
                 <FormDescription>
@@ -147,6 +167,7 @@ export default function NewStoryPage() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="title"
@@ -189,14 +210,18 @@ export default function NewStoryPage() {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Story Content</FormLabel>
-              <FormDescription>
-                The full body of your story. Minimum 200 characters recommended.
-                You can format text using the toolbar.
-              </FormDescription>
+              <FormLabel>Content</FormLabel>
               <FormControl>
-                <RishEditor value={field.value} onChange={(value) => field.onChange(value)} />
+                <RichTextEditor
+                  value={field.value}
+                  onChange={(val) => {
+                    field.onChange(val);
+                  }}
+                />
               </FormControl>
+              <FormDescription>
+                The main body of your story (minimum 200 characters).
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -220,6 +245,7 @@ export default function NewStoryPage() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="tags"
@@ -240,6 +266,7 @@ export default function NewStoryPage() {
             )}
           />
         </div>
+
         <FormField
           control={form.control}
           name="isPublished"
@@ -262,10 +289,21 @@ export default function NewStoryPage() {
           )}
         />
 
-        <Button type="submit" disabled={loading}>
-          Submit
-          {loading && <Loader className="animate-spin" />}
-        </Button>
+        <div className="flex gap-4">
+          <Button type="submit" disabled={loading}>
+            Update Story
+            {loading && <Loader className="animate-spin ml-2" />}
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => router.push("/dashboard/stories")}
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );
