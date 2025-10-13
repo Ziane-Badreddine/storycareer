@@ -44,7 +44,6 @@ export default function StoryCommandDialog() {
     data: stories,
     error,
     isLoading,
-    mutate,
   } = useSWR<Story[]>(
     `/api/story/search?query=${encodeURIComponent(query)}`,
     fetcher,
@@ -55,7 +54,7 @@ export default function StoryCommandDialog() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setOpen((prev) => !prev);
+        setOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -64,17 +63,15 @@ export default function StoryCommandDialog() {
 
   useEffect(() => {
     if (open) {
-      mutate();
       const input = document.querySelector("[cmdk-input]") as HTMLInputElement;
       if (input) {
         input.focus();
-        
       }
     }
-  }, [open, stories, mutate, isMobile]);
-    useEffect(() => {
+  }, [open, stories, isMobile, query]);
+  useEffect(() => {
     if (!open) {
-      setQuery("")
+      setQuery("");
     }
   }, [open]);
 
