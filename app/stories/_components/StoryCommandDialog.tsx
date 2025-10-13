@@ -66,9 +66,17 @@ export default function StoryCommandDialog() {
     if (open) {
       mutate();
       const input = document.querySelector("[cmdk-input]") as HTMLInputElement;
-      if (input) input.focus();
+      if (input) {
+        input.focus();
+        
+      }
     }
   }, [open, stories, mutate, isMobile]);
+    useEffect(() => {
+    if (!open) {
+      setQuery("")
+    }
+  }, [open]);
 
   const handleInputChange = useDebouncedCallback((term) => {
     setQuery(term);
